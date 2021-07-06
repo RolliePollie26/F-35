@@ -125,9 +125,9 @@ end
 
 function update()
     updateWeaponBay()
-    ccParameters.ID_U_UID:set("D200CZ0C4z")
-    ccParameters.ID_U_USER:set("LANKY")
-    ccParameters.ID_U_BUILD:set("1.0.0.2")
+    ccParameters.ID_U_UID:set("xXxXxXxXxX")
+    ccParameters.ID_U_USER:set("ID_U_USER")
+    ccParameters.ID_U_BUILD:set("1.0.0.4")
     ccParameters.ID_U_VER:set("WORK IN PROGRESS")
     ccParameters.ALT:set(sensor_data.getBarometricAltitude() * math.METERS_TO_INCHES)
     ccParameters.RALT:set(sensor_data.getRadarAltitude() * math.METERS_TO_INCHES)
