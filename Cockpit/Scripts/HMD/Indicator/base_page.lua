@@ -374,7 +374,7 @@ GMDis.alignment                  = "LeftCenter"
 GMDis.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
 GMDis.init_pos                   = {-0.55,0.1,0}
 GMDis.stringdefs                 = {0.003,0.002,0,0}
-GMDis.formats                    = {"a\nG\nM"}
+GMDis.formats                    = {"a\nM\nG"}
 GMDis.screenspace                = ScreenType.SCREENSPACE_TRUE
 GMDis.element_params             = {"","HMD_PWR"}
 GMDis.controllers                = {{"text_using_parameter",0},{"opacity_using_parameter",1}}
@@ -390,7 +390,7 @@ GMDis.init_pos                   = {-0.5,0.08,0}
 GMDis.stringdefs                 = {0.003,0.002,0,0}
 GMDis.formats                    = {"%.1f\n","%.1f\n","%.1f"}
 GMDis.screenspace                = ScreenType.SCREENSPACE_TRUE
-GMDis.element_params             = {"AOA","ACCEL","MACH","HMD_PWR"}
+GMDis.element_params             = {"AOA","MACH","ACCEL","HMD_PWR"}
 GMDis.controllers                = {{"text_using_parameter",0},{"text_using_parameter",1},{"text_using_parameter",2},{"opacity_using_parameter",3}}
 GMDis.use_mipfilter              = true
 GMDis.h_clip_relation            = h_clip_relations.REWRITE_LEVEL
