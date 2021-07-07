@@ -298,6 +298,20 @@ ctr.controllers               = {{"opacity_using_parameter",0}}
 ctr.isvisible                 = true
 Add(ctr)
 
+HDG                            = CreateElement "ceStringPoly"
+HDG.name                       = create_guid_string()
+HDG.alignment                  = "LeftCenter"
+HDG.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+HDG.init_pos                   = {0,0.7,0}
+HDG.stringdefs                 = {0.003,0.002,0,0}
+HDG.formats                    = {"%.0f\n"}
+HDG.screenspace                = ScreenType.SCREENSPACE_TRUE
+HDG.element_params             = {"HDG", "HMD_PWR"}
+HDG.controllers                = {{"text_using_parameter",0},{"opacity_using_parameter",1}}
+HDG.use_mipfilter              = true
+HDG.h_clip_relation            = h_clip_relations.REWRITE_LEVEL
+Add(HDG)
+
 altitude                            = CreateElement "ceStringPoly"
 altitude.name                       = create_guid_string()
 altitude.alignment                  = "RightCenter"
