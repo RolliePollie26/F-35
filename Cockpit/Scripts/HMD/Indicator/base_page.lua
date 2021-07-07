@@ -425,17 +425,17 @@ OVERGWARNING.h_clip_relation      = h_clip_relations.REWRITE_LEVEL
 Add(OVERGWARNING)
 
 -- Build pitch lines
-for i=-90,90,10 do
+for i=-90,90,5 do
     local line                    = CreateElement "ceMeshPoly"
     line.name                     = create_guid_string()
     line.primitivetype            = "triangles"
     line.material                 = MakeMaterial(nil,{0,255,0,255})
-    line.vertices                 = vert_gen(512 * 0.35,2)
+    line.vertices                 = vert_gen(512 * 0.35,1)
     line.indices                  = INDICES
     line.init_pos                 = {0,0.17,0}
     line.init_rot                 = {0,0,0}
     line.screenspace              = ScreenType.SCREENSPACE_TRUE
-    line.element_params             = {"PL_X_"..i,"PL_Y_"..i,"PL_R_"..i,"HMD_PWR"}
+    line.element_params             = {"PL_X_"..i,"PL_Y_"..i,"PL_R_"..i,"PL_O_"..i}
     line.controllers                = {
         {"move_left_right_using_parameter",0,1},
         {"move_up_down_using_parameter",1,1},
@@ -462,7 +462,7 @@ for i=-90,90,10 do
             "PL_"..text_data.name.."X_"..i,
             "PL_"..text_data.name.."Y_"..i,
             "PL_R_"..i,
-            "HMD_PWR",
+            "PL_O_"..i,
             ""
         }
         text.controllers                = {

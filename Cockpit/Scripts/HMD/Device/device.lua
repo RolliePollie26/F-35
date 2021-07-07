@@ -62,12 +62,14 @@ end
 -- We have to manually calculate the way pitch lines (and their text)
 -- move and rotate when the plane rotates
 local PITCH_LINE_PARAMS = {}
-for i=-90,90,10 do
+for i=-90,90,5 do
     PITCH_LINE_PARAMS[i] = {
+        -- Used for all elements
+        o = get_param_handle("PL_O_"..i),
+        r = get_param_handle("PL_R_"..i),
         -- Center line
         x = get_param_handle("PL_X_"..i),
         y = get_param_handle("PL_Y_"..i),
-        r = get_param_handle("PL_R_"..i),
         -- Left text
         lx = get_param_handle("PL_LX_"..i),
         ly = get_param_handle("PL_LY_"..i),
@@ -77,20 +79,29 @@ for i=-90,90,10 do
     }
 end
 function update_pitch_lines()
+    --TODO: Head displacement
+    local head_x = get_aircraft_draw_argument_value(39) * 3.14159/2
+    local head_y = get_aircraft_draw_argument_value(99) * 3.14159/2
+    local hmd_pwr = HMD_PWR:get()
     local pitch = -sensor_data.getPitch()
     local roll = sensor_data.getRoll()
     local roll_sin = math.sin(roll)
     local roll_cos = math.cos(roll)
     for i,params in pairs(PITCH_LINE_PARAMS) do
-        local pitch_diff = pitch - math.rad(-i)
-        params.x:set(-pitch_diff * roll_sin)
-        params.y:set(pitch_diff * roll_cos)
-        params.r:set(roll)
-        -- TODO
-        params.lx:set(-0.2 * roll_cos - pitch_diff * roll_sin)
-        params.ly:set(pitch_diff * roll_cos - 0.2 * roll_sin)
-        params.rx:set(0.2 * roll_cos - pitch_diff * roll_sin)
-        params.ry:set(pitch_diff * roll_cos + 0.2 * roll_sin)
+        local pitch_diff = (pitch - math.rad(-i)) * 4.0
+        if pitch_diff > 0.3 or pitch_diff < -1.0 then
+            -- Hide pitch lader outside expected region
+            params.o:set(0)
+        else
+            params.o:set(hmd_pwr)
+            params.r:set(roll)
+            params.x:set(-pitch_diff * roll_sin)
+            params.y:set(pitch_diff * roll_cos)
+            params.lx:set(-0.2 * roll_cos - pitch_diff * roll_sin)
+            params.ly:set(pitch_diff * roll_cos - 0.2 * roll_sin)
+            params.rx:set(0.2 * roll_cos - pitch_diff * roll_sin)
+            params.ry:set(pitch_diff * roll_cos + 0.2 * roll_sin)
+        end
     end
 end
 
