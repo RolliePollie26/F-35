@@ -60,8 +60,8 @@ function SetCommand(command,value)
 end
 
 function update()
-    local batt28v_clickable_ref = get_clickable_element_reference("PNT_BATT28V")
-    local batt270v_clickable_ref = get_clickable_element_reference("PNT_BATT270V")
+    local batt28v_clickable_ref = get_clickable_element_reference("PNT_BATT_28V")
+    local batt270v_clickable_ref = get_clickable_element_reference("PNT_BATT_270V")
     local battery_clickable_ref = get_clickable_element_reference("PNT_BATT")
 
     batt28v_clickable_ref:update()
