@@ -82,7 +82,7 @@ function update_pitch_lines()
     local roll_sin = math.sin(roll)
     local roll_cos = math.cos(roll)
     for i,params in pairs(PITCH_LINE_PARAMS) do
-        local pitch_diff = pitch - math.rad(i)
+        local pitch_diff = pitch - math.rad(-i)
         params.x:set(-pitch_diff * roll_sin)
         params.y:set(pitch_diff * roll_cos)
         params.r:set(roll)
