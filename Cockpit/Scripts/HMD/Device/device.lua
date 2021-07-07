@@ -89,7 +89,7 @@ function update_pitch_lines()
     local roll_cos = math.cos(roll)
     for i,params in pairs(PITCH_LINE_PARAMS) do
         local pitch_diff = (pitch - math.rad(-i)) * 4.0
-        if pitch_diff > 0.3 or pitch_diff < -1.0 then
+        if pitch_diff > 0.5 or pitch_diff < -1.0 then
             -- Hide pitch lader outside expected region
             params.o:set(0)
         else
