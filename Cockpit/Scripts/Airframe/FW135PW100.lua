@@ -46,7 +46,7 @@ dev:listen_command(device_commands.IPPSwitch)
 dev:listen_command(device_commands.ICC1)
 dev:listen_command(device_commands.ICC2)
 dev:listen_command(device_commands.ENGIgn)
-dev:listen_command(309)
+dev:listen_command(device_commands.ENGStart)
 
 function createExternal(sound_host, sdef_name)
     return sound_host:create_sound("Aircrafts/F-35/Cockpit/" .. sdef_name)
@@ -151,72 +151,72 @@ function SetCommand(command,value)
 
     if command == device_commands.ICC1 and ICC_1:get() == 0 then
         ICC_1:set(1)
-        print_message_to_user("ICC 1 ON")
+        --print_message_to_user("ICC 1 ON")
     elseif command == device_commands.ICC1 and ICC_1:get() == 1 then
         ICC_1:set(0)
-        print_message_to_user("ICC 1 OFF")
+        --print_message_to_user("ICC 1 OFF")
     end
 
     if command == device_commands.ICC2 and ICC_2:get() == 0 then
         ICC_2:set(1)
-        print_message_to_user("ICC 2 ON")
+        --print_message_to_user("ICC 2 ON")
     elseif command == device_commands.ICC2 and ICC_2:get() == 1 then
         ICC_2:set(0)
-        print_message_to_user("ICC 2 OFF")
+        --print_message_to_user("ICC 2 OFF")
     end
 
     if command == device_commands.ENGIgn and IGNITION:get() == 0 then
         IGNITION:set(1)
-        print_message_to_user("IGNITION ON")
+        --print_message_to_user("IGNITION ON")
     elseif command == device_commands.ENGIgn and IGNITION:get() == 1 then
         IGNITION:set(0)
-        print_message_to_user("IGNITION OFF")
+        --print_message_to_user("IGNITION OFF")
     end
 
-    if command == 309 and IGNITION:get() == 1 and ICC_1:get() == 1 and ICC_2:get() == 1 and IPP:get() == 1 then
+    if command == device_commands.ENGStart and IGNITION:get() == 1 and ICC_1:get() == 1 and ICC_2:get() == 1 and IPP:get() == 1 then
         ENG_STATE = STARTING
         ENG_START = 1
         ENG_RUN = 0
         ENG_OFF = 0
         dispatch_action(nil,309)
-        print_message_to_user("ENGINE STARTING")
-    elseif command == 309 and IGNITION:get() == 1 and ICC_1:get() == 1 and ICC_2:get() == 1 and IPP:get() == 0 then
+        --print_message_to_user("ENGINE STARTING")
+    elseif command == device_commands.ENGStart and IGNITION:get() == 1 and ICC_1:get() == 1 and ICC_2:get() == 1 and IPP:get() == 0 then
         ENG_STATE = OFF
         ENG_START = 0
         ENG_RUN = 0
         ENG_OFF = 1
         print_message_to_user("CANNOT START ENGINE. IPP NOT RUNNING!")
-    elseif command == 309 and IGNITION:get() == 1 and ICC_1:get() == 1 and ICC_2:get() == 0 and IPP:get() == 1 then
+    elseif command == device_commands.ENGStart and IGNITION:get() == 1 and ICC_1:get() == 1 and ICC_2:get() == 0 and IPP:get() == 1 then
         ENG_STATE = OFF
         ENG_START = 0
         ENG_RUN = 0
         ENG_OFF = 1
         print_message_to_user("CANNOT START ENGINE. ICC 2 IS NOT ON!")
-    elseif command == 309 and IGNITION:get() == 1 and ICC_1:get() == 0 and ICC_2:get() == 1 and IPP:get() == 1 then
+    elseif command == device_commands.ENGStart and IGNITION:get() == 1 and ICC_1:get() == 0 and ICC_2:get() == 1 and IPP:get() == 1 then
         ENG_STATE = OFF
         ENG_START = 0
         ENG_RUN = 0
         ENG_OFF = 1
         print_message_to_user("CANNOT START ENGINE. ICC 1 IS NOT ON!")
-    elseif command == 309 and IGNITION:get() == 0 and ICC_1:get() == 1 and ICC_2:get() == 1 and IPP:get() == 1 then
+    elseif command == device_commands.ENGStart and IGNITION:get() == 0 and ICC_1:get() == 1 and ICC_2:get() == 1 and IPP:get() == 1 then
         ENG_STATE = OFF
         ENG_START = 0
         ENG_RUN = 0
         ENG_OFF = 1
         print_message_to_user("CANNOT START ENGINE. IGNITION IS NOT ON!")
-    elseif command == 309 and IGNITION:get() == 0 and ICC_1:get() == 0 and ICC_2:get() == 1 and IPP:get() == 1 then
+    elseif command == device_commands.ENGStart and IGNITION:get() == 0 and ICC_1:get() == 0 and ICC_2:get() == 1 and IPP:get() == 1 then
         ENG_STATE = OFF
         ENG_START = 0
         ENG_RUN = 0
         ENG_OFF = 1
         print_message_to_user("CANNOT START ENGINE. IGNITION AND ICC 1 ARE NOT ON!")
-    elseif command == 309 and IGNITION:get() == 0 and ICC_1:get() == 0 and ICC_2:get() == 0 and IPP:get() == 1 then
+    elseif command == device_commands.ENGStart and IGNITION:get() == 0 and ICC_1:get() == 0 and ICC_2:get() == 0 and IPP:get() == 1 then
         ENG_STATE = OFF
         ENG_START = 0
         ENG_RUN = 0
         ENG_OFF = 1
         print_message_to_user("CANNOT START ENGINE. IGNITION, ICC 1 and ICC 2 ARE NOT ON!")
-    elseif command == 309 and IGNITION:get() == 0 and ICC_1:get() == 0 and ICC_2:get() == 0 and IPP:get() == 0 then
+    elseif command == device_commands.ENGStart and IGNITION:get() == 0 and ICC_1:get() == 0 and ICC_2:get() == 0 and IPP:get() == 0 then
         ENG_STATE = OFF
         ENG_START = 0
         ENG_RUN = 0

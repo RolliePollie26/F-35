@@ -55,6 +55,9 @@ local ccParameters =
                         BAYDOORS = get_param_handle("BAYDOORS"),
                         CHOCKS = get_param_handle("CHOCKS"),
                         COVERS = get_param_handle("COVERS"),
+                        HUDPWR = get_param_handle("HUD_PWR"),
+                        AAMODE = get_param_handle("AA_MODE"),
+                        AGMODE = get_param_handle("AG_MODE"),
 }
 
 local WeaponsBay = 0
