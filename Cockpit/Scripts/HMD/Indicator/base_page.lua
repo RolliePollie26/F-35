@@ -60,6 +60,17 @@ local aspect = GetAspect()
 
 local INDICES = {0,1,2,0,2,3}
 
+-- Box made of stroke lines
+
+-- made by four lines
+local BOX_INDICES = {0, 1, 1, 2, 2, 3, 3, 0}
+
+function box_verts(sideX, sideY)
+	local halfSideX	= sideX / 2
+	local halfSideY	= sideY / 2
+	return {{-halfSideX, -halfSideY}, {-halfSideX, halfSideY}, {halfSideX, halfSideY}, {halfSideX, -halfSideY}}
+end
+
 -- BASE CLIP (DO NOT DELETE / CHANGE)
 --[[ base_clip                           = CreateElement "ceMeshPoly"
 base_clip.name                      = "base_clip"
@@ -314,6 +325,25 @@ altitude.use_mipfilter              = true
 altitude.h_clip_relation            = h_clip_relations.REWRITE_LEVEL
 Add(altitude)
 
+local box                    = CreateElement "ceSMultiLine"
+box.name                     = create_guid_string()
+box.isdraw                   = true
+box.material                 = BG_MAT
+box.use_mipfilter            = true
+box.controllers              = {
+    {"opacity_using_parameter",0},
+}
+box.element_params           = {"HMD_PWR"}
+box.init_pos                 = {0.51,0.2,0}
+box.init_rot                 = {0,0,0}
+box.alignment                = "RightCenter"
+box.thickness                = 10.0
+box.fuzziness                = 1.0
+box.vertices                 = box_verts(0.20,0.06)
+box.indices                  = BOX_INDICES
+box.screenspace              = ScreenType.SCREENSPACE_TRUE
+Add(box)
+
 radalt                              = CreateElement "ceStringPoly"
 radalt.name                         = create_guid_string()
 radalt.alignment                    = "RightCenter"
@@ -344,7 +374,7 @@ Add(radalt)
 
 speed                            = CreateElement "ceStringPoly"
 speed.name                       = create_guid_string()
-speed.alignment                  = "LeftCenter"
+speed.alignment                  = "RightCenter"
 speed.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
 speed.init_pos                   = {-0.5,0.2,0}
 speed.stringdefs                 = {0.004,0.003,0,0}
@@ -355,6 +385,25 @@ speed.controllers                = {{"text_using_parameter",0},{"opacity_using_p
 speed.use_mipfilter              = true
 speed.h_clip_relation            = h_clip_relations.REWRITE_LEVEL
 Add(speed)
+
+local box                    = CreateElement "ceSMultiLine"
+box.name                     = create_guid_string()
+box.isdraw                   = true
+box.material                 = BG_MAT
+box.use_mipfilter            = true
+box.controllers              = {
+    {"opacity_using_parameter",0},
+}
+box.element_params           = {"HMD_PWR"}
+box.init_pos                 = {-0.49,0.2,0}
+box.init_rot                 = {0,0,0}
+box.alignment                = "RightCenter"
+box.thickness                = 10.0
+box.fuzziness                = 1.0
+box.vertices                 = box_verts(0.15,0.06)
+box.indices                  = BOX_INDICES
+box.screenspace              = ScreenType.SCREENSPACE_TRUE
+Add(box)
 
 GMDis                            = CreateElement "ceStringPoly"
 GMDis.name                       = create_guid_string()
@@ -431,6 +480,28 @@ HDG.controllers                = {
 HDG.use_mipfilter              = true
 HDG.h_clip_relation            = h_clip_relations.REWRITE_LEVEL
 Add(HDG)
+
+local box                    = CreateElement "ceSMultiLine"
+box.name                     = create_guid_string()
+box.isdraw                   = true
+box.material                 = BG_MAT
+box.use_mipfilter            = true
+box.controllers              = {
+    {"move_left_right_using_parameter",0,1},
+    {"move_up_down_using_parameter",1,1},
+    {"rotate_using_parameter",2,1},
+    {"opacity_using_parameter",3},
+}
+box.element_params           = {"HDG_X","HDG_Y","ROLL","HMD_PWR"}
+box.init_pos                 = {0,0.17,0}
+box.init_rot                 = {0,0,0}
+box.alignment                = "CenterBottom"
+box.thickness                = 10.0
+box.fuzziness                = 1.0
+box.vertices                 = box_verts(0.1,0.03)
+box.indices                  = BOX_INDICES
+box.screenspace              = ScreenType.SCREENSPACE_TRUE
+Add(box)
 
 -- Build heading lines
 for i=0,350,10 do
