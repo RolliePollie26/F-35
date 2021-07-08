@@ -360,7 +360,7 @@ elements["PNT_CANOPY"] = default_2_position_tumb(_("Canopy OPEN/CLOSE"), devices
 
 elements["PNT_PARK_BRAKE"] = default_2_position_tumb(_("Parking Brake ON/OFF"), devices.LANDING_GEAR, device_commands.ParkingBrake, 19, TOGGLECLICK)
 
-elements["PNT_HMD_PWR"] = default_button(_("HMD Power ON/OFF"), devices.HMD, device_commands.HMDPower, 22, TOGGLECLICK)
+elements["PNT_HMD_PWR"] = default_2_position_tumb(_("HMD Power ON/OFF"), devices.HMD, device_commands.HMDPower, 22, TOGGLECLICK)
 
 for i,o in pairs(elements) do
 	if  o.class[1] == class_type.TUMB or 

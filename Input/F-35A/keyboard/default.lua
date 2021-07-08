@@ -5,7 +5,7 @@ ignore_features(res.keyCommands,{
 join(res.keyCommands,{
 
 {combos = {{key = 'B', reformers = {'LCtrl'}}}, down = 10020, name = _('Weapons Bay TOGGLE'), category = _('Weapons')},
-{combos = {{key = 'Home', reformers = {'RShift'}}}, down = 10015, name = _('Engine START'), category = _('FW135PW100')},
+{combos = {{key = 'Home', reformers = {'RShift'}}}, down = 10016, name = _('Engine START'), category = _('FW135PW100')},
 
 -- Night Vision Goggles
 {combos = {{key = 'N'}}	, down = iCommandViewNightVisionGogglesOn,	 name = _('Toggle Night Vision Goggles'), 	category = _('NVG')},
@@ -76,7 +76,7 @@ join(res.keyCommands,{
 {combos = {{key = 'R', reformers = {'RShift'}}}, down = iCommandChangeRWRMode, name = _('RWR/SPO Mode Select'), category = _('Sensors')},
 {combos = {{key = ',', reformers = {'RAlt'}}}, down = iCommandPlaneThreatWarnSoundVolumeDown, name = _('RWR/SPO Sound Signals Volume Down'), category = _('Sensors')},
 {combos = {{key = '.', reformers = {'RAlt'}}}, down = iCommandPlaneThreatWarnSoundVolumeUp, name = _('RWR/SPO Sound Signals Volume Up'), category = _('Sensors')},
-{combos = {{key = '7'}}, down = 10016, name = _('HMD Sensor View TOGGLE'), category = _('Sensors')},
+{combos = {{key = '7'}}, down = 10018, name = _('HMD Sensor View TOGGLE'), category = _('Sensors')},
 
 -- Weapons                                                                        
 {combos = {{key = 'V', reformers = {'LCtrl'}}}, down = iCommandPlaneSalvoOnOff, name = _('Salvo Mode'), category = _('Weapons')},
