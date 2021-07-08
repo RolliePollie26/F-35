@@ -12,6 +12,8 @@ DEFAULT_NOCLIP_LEVEL = DEFAULT_LEVEL - 1
 BG_MAT = MakeMaterial(nil, {0,255,0,255})
 --TEST_TEX = MakeMaterial(IND_TEX_PATH.."TEST.png", {255,255,255,255})
 
+local FONT = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+
 default_x = 512
 default_y = 512
 
@@ -360,7 +362,7 @@ GMDis.alignment                  = "LeftCenter"
 GMDis.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
 GMDis.init_pos                   = {-0.55,0.1,0}
 GMDis.stringdefs                 = {0.003,0.002,0,0}
-GMDis.formats                    = {"a\nG\nM"}
+GMDis.formats                    = {"a\nM\nG"}
 GMDis.screenspace                = ScreenType.SCREENSPACE_TRUE
 GMDis.element_params             = {"","HMD_PWR"}
 GMDis.controllers                = {{"text_using_parameter",0},{"opacity_using_parameter",1}}
@@ -376,7 +378,7 @@ GMDis.init_pos                   = {-0.5,0.08,0}
 GMDis.stringdefs                 = {0.003,0.002,0,0}
 GMDis.formats                    = {"%.1f\n","%.1f\n","%.1f"}
 GMDis.screenspace                = ScreenType.SCREENSPACE_TRUE
-GMDis.element_params             = {"AOA","ACCEL","MACH","HMD_PWR"}
+GMDis.element_params             = {"AOA","MACH","ACCEL","HMD_PWR"}
 GMDis.controllers                = {{"text_using_parameter",0},{"text_using_parameter",1},{"text_using_parameter",2},{"opacity_using_parameter",3}}
 GMDis.use_mipfilter              = true
 GMDis.h_clip_relation            = h_clip_relations.REWRITE_LEVEL
@@ -409,3 +411,125 @@ OVERGWARNING.controllers          = {{"text_using_parameter",0},{"opacity_using_
 OVERGWARNING.use_mipfilter        = true
 OVERGWARNING.h_clip_relation      = h_clip_relations.REWRITE_LEVEL
 Add(OVERGWARNING)
+
+HDG                            = CreateElement "ceStringPoly"
+HDG.name                       = create_guid_string()
+HDG.alignment                  = "CenterCenter"
+HDG.material                   = FONT
+HDG.init_pos                   = {0,0.17,0}
+HDG.stringdefs                 = {0.003,0.002,0,0}
+HDG.formats                    = {"%.0f\n"}
+HDG.screenspace                = ScreenType.SCREENSPACE_TRUE
+HDG.element_params             = {"HDG_X","HDG_Y","ROLL","HMD_PWR","HDG"}
+HDG.controllers                = {
+    {"move_left_right_using_parameter",0,1},
+    {"move_up_down_using_parameter",1,1},
+    {"rotate_using_parameter",2,1},
+    {"opacity_using_parameter",3},
+    {"text_using_parameter",4}
+}
+HDG.use_mipfilter              = true
+HDG.h_clip_relation            = h_clip_relations.REWRITE_LEVEL
+Add(HDG)
+
+-- Build heading lines
+for i=0,350,10 do
+    local line                    = CreateElement "ceMeshPoly"
+    line.name                     = create_guid_string()
+    line.primitivetype            = "triangles"
+    line.material                 = BG_MAT
+    line.vertices                 = vert_gen(1, 512 * 0.02)
+    line.indices                  = INDICES
+    line.init_pos                 = {0,0.17,0}
+    line.init_rot                 = {0,0,0}
+    line.screenspace              = ScreenType.SCREENSPACE_TRUE
+    line.element_params             = {"HL_X_"..i,"HL_Y_"..i,"HL_R_"..i,"HL_O_"..i}
+    line.controllers                = {
+        {"move_left_right_using_parameter",0,1},
+        {"move_up_down_using_parameter",1,1},
+        {"rotate_using_parameter",2,1},
+        {"opacity_using_parameter",3}
+    }
+    line.isvisible                = true
+    Add(line)
+
+    local text                      = CreateElement "ceStringPoly"
+    text.name                       = create_guid_string()
+    text.alignment                  = "CenterCenter"
+    text.material                   = FONT
+    text.init_pos                   = {0,0.17,0}
+    text.stringdefs                 = {0.003,0.002,0,0}
+    text.formats                    = {tostring(i/10)}
+    text.screenspace                = ScreenType.SCREENSPACE_TRUE
+    text.element_params             = {
+        "HL_TX_"..i,
+        "HL_TY_"..i,
+        "HL_R_"..i,
+        "HL_TO_"..i,
+        ""
+    }
+    text.controllers                = {
+        {"move_left_right_using_parameter",0,1},
+        {"move_up_down_using_parameter",1,1},
+        {"rotate_using_parameter",2,1},
+        {"opacity_using_parameter",3},
+        {"text_using_parameter",4}
+    }
+    text.use_mipfilter              = true
+    text.h_clip_relation            = h_clip_relations.REWRITE_LEVEL
+    Add(text)
+end
+
+-- Build pitch lines
+for i=-90,90,5 do
+    local line                    = CreateElement "ceMeshPoly"
+    line.name                     = create_guid_string()
+    line.primitivetype            = "triangles"
+    line.material                 = BG_MAT
+    line.vertices                 = vert_gen(512 * 0.35,1)
+    line.indices                  = INDICES
+    line.init_pos                 = {0,0.17,0}
+    line.init_rot                 = {0,0,0}
+    line.screenspace              = ScreenType.SCREENSPACE_TRUE
+    line.element_params             = {"PL_X_"..i,"PL_Y_"..i,"PL_R_"..i,"PL_O_"..i}
+    line.controllers                = {
+        {"move_left_right_using_parameter",0,1},
+        {"move_up_down_using_parameter",1,1},
+        {"rotate_using_parameter",2,1},
+        {"opacity_using_parameter",3}
+    }
+    line.isvisible                = true
+    Add(line)
+
+    text_datas = {
+        {name = "L", alignment = "RightCenter"},
+        {name = "R", alignment = "LeftCenter"}
+    }
+    for text_i,text_data in ipairs(text_datas) do
+        local text                      = CreateElement "ceStringPoly"
+        text.name                       = create_guid_string()
+        text.alignment                  = text_data.alignment
+        text.material                   = FONT
+        text.init_pos                   = {text_data.x,0.17,0}
+        text.stringdefs                 = {0.003,0.002,0,0}
+        text.formats                    = {tostring(i)}
+        text.screenspace                = ScreenType.SCREENSPACE_TRUE
+        text.element_params             = {
+            "PL_"..text_data.name.."X_"..i,
+            "PL_"..text_data.name.."Y_"..i,
+            "PL_R_"..i,
+            "PL_O_"..i,
+            ""
+        }
+        text.controllers                = {
+            {"move_left_right_using_parameter",0,1},
+            {"move_up_down_using_parameter",1,1},
+            {"rotate_using_parameter",2,1},
+            {"opacity_using_parameter",3},
+            {"text_using_parameter",4}
+        }
+        text.use_mipfilter              = true
+        text.h_clip_relation            = h_clip_relations.REWRITE_LEVEL
+        Add(text)
+    end
+end
