@@ -59,43 +59,49 @@ function SetCommand(command,value)
     end
 end
 
+local FPM_X = get_param_handle("FPM_X")
+local FPM_Y = get_param_handle("FPM_Y")
+function update_flight_path_marker()
+    local pitch = sensor_data:getPitch()
+    local speedx, speedy, speedz = sensor_data:getSelfVelocity()
+    local speedh=math.sqrt(speedx*speedx + speedz*speedz)
+    local anglev
+    if speedh == 0 then
+        anglev = 0
+    else
+        anglev = math.atan(speedy/speedh)
+    end
+    local iasx, iasy, iasz = sensor_data.getSelfAirspeed()
+    local angleh = math.atan2(iasz, iasx) - math.atan2(speedz, speedx)
+    angleh = math.rad(sensor_data.getAngleOfSlide())-angleh
+
+    FPM_X:set(angleh)
+    FPM_Y:set(anglev - pitch)
+end
+
 -- We have to manually calculate the way heading lines (and their text)
 -- move and rotate when the plane rotates
-local HDG_X = get_param_handle("HDG_X")
-local HDG_Y = get_param_handle("HDG_Y")
 local HEADING_LINE_PARAMS = {}
 for i=0,350,10 do
     HEADING_LINE_PARAMS[i] = {
-        -- Used for all elements
-        r = get_param_handle("HL_R_"..i),
         -- Line
         x = get_param_handle("HL_X_"..i),
-        y = get_param_handle("HL_Y_"..i),
         o = get_param_handle("HL_O_"..i),
         -- Text
         tx = get_param_handle("HL_TX_"..i),
-        ty = get_param_handle("HL_TY_"..i),
         to = get_param_handle("HL_TO_"..i),
     }
 end
 function update_heading_lines()
-    --TODO: Head displacement
-    local head_x = get_aircraft_draw_argument_value(39) * math.pi/2
-    local head_y = get_aircraft_draw_argument_value(99) * math.pi/2
     local hmd_pwr = HMD_PWR:get()
-    local hdg = sensor_data.getHeading()
-    local roll = sensor_data.getRoll()
-    local roll_sin = math.sin(roll)
-    local roll_cos = math.cos(roll)
-    HDG_X:set(-0.5125 * roll_sin)
-    HDG_Y:set(0.5125 * roll_cos)
+    local hdg = -sensor_data.getHeading()
     for i,params in pairs(HEADING_LINE_PARAMS) do
-        local hdg_diff = (hdg - math.rad(i))
+        local hdg_diff = (math.rad(i) - hdg)
         -- Normalize hdg_diff to between -PI and PI
-        if hdg_diff > math.pi then
+        while hdg_diff > math.pi do
             hdg_diff = hdg_diff - 2.0 * math.pi
         end
-        if hdg_diff < -math.pi then
+        while hdg_diff < -math.pi do
             hdg_diff = hdg_diff + 2.0 * math.pi
         end
         if math.abs(hdg_diff) > math.rad(25) then
@@ -103,16 +109,14 @@ function update_heading_lines()
             params.o:set(0)
             params.to:set(0)
         else
-            params.r:set(roll)
-            params.x:set(hdg_diff * roll_cos - 0.48 * roll_sin)
-            params.y:set(0.48 * roll_cos + hdg_diff * roll_sin)
+            local hdg_offset = hdg_diff / (math.pi / 2)
+            params.x:set(hdg_offset)
             params.o:set(hmd_pwr)
-            if math.abs(hdg_diff) < math.rad(5) then
+            if math.abs(hdg_diff) < math.rad(3) then
                 -- Hide tick text where it would interfere with heading indicator
                 params.to:set(0)
             else
-                params.tx:set(hdg_diff * roll_cos - 0.53 * roll_sin)
-                params.ty:set(0.53 * roll_cos + hdg_diff * roll_sin)
+                params.tx:set(hdg_offset)
                 params.to:set(hmd_pwr)
             end
         end
@@ -131,17 +135,11 @@ for i=-90,90,5 do
         x = get_param_handle("PL_X_"..i),
         y = get_param_handle("PL_Y_"..i),
         -- Left text
-        lx = get_param_handle("PL_LX_"..i),
-        ly = get_param_handle("PL_LY_"..i),
-        -- Right text
-        rx = get_param_handle("PL_RX_"..i),
-        ry = get_param_handle("PL_RY_"..i)
+        tx = get_param_handle("PL_TX_"..i),
+        ty = get_param_handle("PL_TY_"..i)
     }
 end
 function update_pitch_lines()
-    --TODO: Head displacement
-    local head_x = get_aircraft_draw_argument_value(39) * math.pi/2
-    local head_y = get_aircraft_draw_argument_value(99) * math.pi/2
     local hmd_pwr = HMD_PWR:get()
     local pitch = -sensor_data.getPitch()
     local roll = sensor_data.getRoll()
@@ -149,27 +147,23 @@ function update_pitch_lines()
     local roll_cos = math.cos(roll)
     for i,params in pairs(PITCH_LINE_PARAMS) do
         local pitch_diff = pitch - math.rad(-i)
-        -- Normalize pitch_diff to between -PI/2 and PI/2
-        if pitch_diff > math.pi/2.0 then
-            pitch_diff = pitch_diff - math.pi
-        end
-        if pitch_diff < -math.pi/2.0 then
-            pitch_diff = pitch_diff + math.pi
-        end
         if pitch_diff > math.rad(8) or pitch_diff < -math.rad(16) then
             -- Hide pitch lader outside expected region
             params.o:set(0)
         else
-            -- Amplify pitch_diff by 3x
-            pitch_diff = pitch_diff * 3.0
+            local pitch_offset = pitch_diff / (math.pi / 2)
+            local text_offset
+            if i > 0 then
+                text_offset = 0.06
+            else
+                text_offset = 0.05
+            end
             params.o:set(hmd_pwr)
             params.r:set(roll)
-            params.x:set(-pitch_diff * roll_sin)
-            params.y:set(pitch_diff * roll_cos)
-            params.lx:set(-0.2 * roll_cos - pitch_diff * roll_sin)
-            params.ly:set(pitch_diff * roll_cos - 0.2 * roll_sin)
-            params.rx:set(0.2 * roll_cos - pitch_diff * roll_sin)
-            params.ry:set(pitch_diff * roll_cos + 0.2 * roll_sin)
+            params.x:set(-pitch_offset * roll_sin)
+            params.y:set(pitch_offset * roll_cos)
+            params.tx:set(-text_offset * roll_cos - pitch_offset * roll_sin)
+            params.ty:set(pitch_offset * roll_cos - text_offset * roll_sin)
         end
     end
 end
@@ -190,6 +184,7 @@ function update()
 
     set_aircraft_draw_argument_value(400,VISOR)
 
+    update_flight_path_marker()
     update_heading_lines()
     update_pitch_lines()
 end

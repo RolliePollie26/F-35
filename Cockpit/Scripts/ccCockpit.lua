@@ -11,8 +11,8 @@ local sensor_data = get_base_data()
 local update_time_step = 0.02
 make_default_activity(update_time_step)
 
-local math = 
-            {  
+local math =
+            {
                 ias_conversion_to_knots = 1.9504132,
                 ias_conversion_to_kmh = 3.6,
                 DEGREE_TO_RAD = 0.0174532925199433,
@@ -20,7 +20,7 @@ local math =
                 METERS_TO_INCHES = 3.2808,
 }
 
-local ccParameters = 
+local ccParameters =
                     {
                         ccInit = get_param_handle("ccInit"),
                         ID_U_UID = get_param_handle("ID_U_UID"),
@@ -145,26 +145,33 @@ function update()
     ccParameters.ACCEL:set(sensor_data.getVerticalAcceleration())
     ccParameters.VSPD:set(sensor_data.getVerticalVelocity())
     ccParameters.SPEED:set(sensor_data.getIndicatedAirSpeed() * math.ias_conversion_to_knots)
-    ccParameters.HDG:set(sensor_data.getHeading() * math.RADIANS_TO_DEGREES)
+    ccParameters.HDG:set((-sensor_data.getHeading() * math.RADIANS_TO_DEGREES) % 360)
     ccParameters.MHDG:set(sensor_data.getMagneticHeading() * math.RADIANS_TO_DEGREES)
     ccParameters.MACH:set(sensor_data.getMachNumber())
 
     if get_aircraft_draw_argument_value(0) < 1 and ccParameters.RALT:get() < 50 then
         altWarn:play_continue()
         ccParameters.WARNALT:set(1)
-        --print_message_to_user("ALTITUDE")
     else
         altWarn:stop()
         ccParameters.WARNALT:set(0)
     end
 
-    if ccParameters.ACCEL:get() > 6 then
+    if ccParameters.ACCEL:get() > 5 then
         overG:play_continue()
         ccParameters.WARNOVERG:set(1)
-        --print_message_to_user("OVER G")
     else
         overG:stop()
         ccParameters.WARNOVERG:set(0)
+    end
+
+    if get_aircraft_draw_argument_value(0) < 1 and ccParameters.SPEED:get() < 80 then
+        stallWarn:play_continue()
+        ccParameters.STALL:set(1)
+        print_message_to_user("STALL WARNING")
+    else
+        stallWarn:stop()
+        ccParameters.STALL:set(0)
     end
 
     if ccParameters.BATT:get() == 1 then

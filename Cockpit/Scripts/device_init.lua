@@ -13,9 +13,10 @@ creators[devices.CANOPY]            = {"avLuaDevice",               LockOn_Optio
 creators[devices.FCS]               = {"avLuaDevice",               LockOn_Options.script_path.."Airframe/FCS.lua"}
 creators[devices.HMD]               = {"avLuaDevice",               LockOn_Options.script_path.."HMD/Device/device.lua"}
 creators[devices.INTERCOM]          = {"avIntercom"}
-creators[devices.RADIO]             = {"avUHK_ARC_164"}
+creators[devices.RADIO]             = {"avUHK_ARC_164", {devices.INTERCOM}}
 creators[devices.NVG]               = {"avNightVisionGoggles"}
 
 -- Indicators
 indicators = {}
 indicators[#indicators + 1] = {"ccIndicator",LockOn_Options.script_path.."HMD/Indicator/init.lua",nil}
+indicators[#indicators + 1] = {"ccIndicator",LockOn_Options.script_path.."Displays/HUD/Indicator/init.lua",nil,{{"PNT_HUD_CENTER"},{"PNT_HUD_RIGHT"},{"PNT_HUD_DOWN"}}}
