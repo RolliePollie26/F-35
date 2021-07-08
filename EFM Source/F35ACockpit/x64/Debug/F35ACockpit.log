@@ -1,0 +1,8 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(505,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+  stdafx.cpp
+  dllmain.cpp
+  F35Cockpit.cpp
+C:\Users\spenc\Saved Games\DCS.openbeta\Mods\aircraft\F-35\EFM Source\F35ACockpit\F35Cockpit.cpp(70,1): warning C4273: 'test': inconsistent dll linkage
+C:\Users\spenc\Saved Games\DCS.openbeta\Mods\aircraft\F-35\EFM Source\F35ACockpit\F35Cockpit.h(74,24): message : see previous definition of 'test'
+     Creating library ..\..\bin\F35Cockpit.lib and object ..\..\bin\F35Cockpit.exp
+  F35ACockpit.vcxproj -> C:\Users\spenc\Saved Games\DCS.openbeta\Mods\aircraft\F-35\bin\F35Cockpit.dll
