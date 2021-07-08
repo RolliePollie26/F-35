@@ -59,6 +59,26 @@ function SetCommand(command,value)
     end
 end
 
+local FPM_X = get_param_handle("FPM_X")
+local FPM_Y = get_param_handle("FPM_Y")
+function update_flight_path_marker()
+    local pitch = sensor_data:getPitch()
+    local speedx, speedy, speedz = sensor_data:getSelfVelocity()
+    local speedh=math.sqrt(speedx*speedx + speedz*speedz)
+    local anglev
+    if speedh == 0 then
+        anglev = 0
+    else
+        anglev = math.atan(speedy/speedh)
+    end
+    local iasx, iasy, iasz = sensor_data.getSelfAirspeed()
+    local angleh = math.atan2(iasz, iasx) - math.atan2(speedz, speedx)
+    angleh = math.rad(sensor_data.getAngleOfSlide())-angleh
+
+    FPM_X:set(angleh)
+    FPM_Y:set(anglev - pitch)
+end
+
 -- We have to manually calculate the way heading lines (and their text)
 -- move and rotate when the plane rotates
 local HEADING_LINE_PARAMS = {}
@@ -163,6 +183,7 @@ function update()
 
     set_aircraft_draw_argument_value(400,VISOR)
 
+    update_flight_path_marker()
     update_heading_lines()
     update_pitch_lines()
 end

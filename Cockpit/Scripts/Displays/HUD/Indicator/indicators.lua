@@ -122,13 +122,28 @@ end
 
 -- Crosshair
 for i, rect in ipairs({
+    {x = 0, y = 0, w = 0.1, h = 0.02},
+    {x = 0, y = 0, w = 0.02, h = 0.1},
+}) do
+    local line                      = hudRect(rect.x, rect.y, rect.w, rect.h)
+    line.element_params             = {"BATT"}
+    line.controllers                = {{"opacity_using_parameter",0}}
+    Add(line)
+end
+
+-- Flight path marker
+for i, rect in ipairs({
     {x = -0.1, y = 0, w = 0.1, h = 0.02},
     {x = 0.1, y = 0, w = 0.1, h = 0.02},
     {x = 0.0, y = 0.1, w = 0.02, h = 0.1}
 }) do
     local line                      = hudRect(rect.x, rect.y, rect.w, rect.h)
-    line.element_params             = {"BATT"}
-    line.controllers                = {{"opacity_using_parameter",0}}
+    line.element_params             = {"FPM_X","FPM_Y","BATT"}
+    line.controllers                = {
+        {"move_left_right_using_parameter",0,1},
+        {"move_up_down_using_parameter",1,1},
+        {"opacity_using_parameter",2}
+    }
     Add(line)
 end
 
