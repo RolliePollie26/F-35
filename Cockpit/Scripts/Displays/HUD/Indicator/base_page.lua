@@ -9,10 +9,10 @@ ASPECT_HEIGHT = GetAspect()
 DEFAULT_LEVEL = 4
 DEFAULT_NOCLIP_LEVEL = DEFAULT_LEVEL - 1
 
-BG_MAT = MakeMaterial(nil, {0,15,0,255})
+BG_MAT = MakeMaterial(nil, {44,255,163,255})
 --TEST_TEX = MakeMaterial(IND_TEX_PATH.."TEST.png", {255,255,255,255})
 
-local FONT = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+FONT = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{44,255,163,255})
 
 default_x = 512
 default_y = 512
@@ -49,6 +49,14 @@ function mirror_tex_coord_gen(x_dis,y_dis,width,height,size_X,size_Y)
 			{x_dis / size_X , y_dis / size_Y},
 			{x_dis / size_X , (y_dis + height) / size_Y},
 			{(x_dis + width) / size_X , (y_dis + height) / size_Y},}
+end
+
+BOX_INDICES = {0, 1, 1, 2, 2, 3, 3, 0}
+
+function box_verts(sideX, sideY)
+	local halfSideX	= sideX / 2
+	local halfSideY	= sideY / 2
+	return {{-halfSideX, -halfSideY}, {-halfSideX, halfSideY}, {halfSideX, halfSideY}, {halfSideX, -halfSideY}}
 end
 
 SHOW_MASKS = false

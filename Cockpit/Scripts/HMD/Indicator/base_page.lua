@@ -9,10 +9,10 @@ ASPECT_HEIGHT = GetAspect()
 DEFAULT_LEVEL = 4
 DEFAULT_NOCLIP_LEVEL = DEFAULT_LEVEL - 1
 
-BG_MAT = MakeMaterial(nil, {0,255,0,255})
+BG_MAT = MakeMaterial(nil, {44,255,163,255})
 --TEST_TEX = MakeMaterial(IND_TEX_PATH.."TEST.png", {255,255,255,255})
 
-local FONT = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+local FONT = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{44,255,163,255})
 
 default_x = 512
 default_y = 512
@@ -258,7 +258,7 @@ Add(base)
 base					= CreateElement "ceStringPoly"
 base.name				= create_guid_string()
 base.alignment 			= "CenterCenter"
-base.material			= MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+base.material			= MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{44,255,163,255})
 base.init_pos			= {0,0.9,0}
 base.stringdefs			= {0.003,0.002,  0, 0}
 base.formats 			= {"[DEVELOPER BUILD]"}
@@ -272,7 +272,7 @@ Add(base)
 ctr                           = CreateElement "ceMeshPoly"
 ctr.name                      = create_guid_string()
 ctr.primitivetype             = "triangles"
-ctr.material                  = MakeMaterial(nil,{0,255,0,255})
+ctr.material                  = MakeMaterial(nil,{44,255,163,255})
 ctr.vertices                  = vert_gen(12,3)
 ctr.indices                   = INDICES
 ctr.init_pos                  = {0,0.195,0}
@@ -286,7 +286,7 @@ Add(ctr)
 ctr                           = CreateElement "ceMeshPoly"
 ctr.name                      = create_guid_string()
 ctr.primitivetype             = "triangles"
-ctr.material                  = MakeMaterial(nil,{0,255,0,255})
+ctr.material                  = MakeMaterial(nil,{44,255,163,255})
 ctr.vertices                  = vert_gen(12,3)
 ctr.indices                   = INDICES
 ctr.init_pos                  = {0.025,0.17,0}
@@ -300,7 +300,7 @@ Add(ctr)
 ctr                           = CreateElement "ceMeshPoly"
 ctr.name                      = create_guid_string()
 ctr.primitivetype             = "triangles"
-ctr.material                  = MakeMaterial(nil,{0,255,0,255})
+ctr.material                  = MakeMaterial(nil,{44,255,163,255})
 ctr.vertices                  = vert_gen(12,3)
 ctr.indices                   = INDICES
 ctr.init_pos                  = {-0.025,0.17,0}
@@ -314,7 +314,7 @@ Add(ctr)
 altitude                            = CreateElement "ceStringPoly"
 altitude.name                       = create_guid_string()
 altitude.alignment                  = "RightCenter"
-altitude.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+altitude.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{44,255,163,255})
 altitude.init_pos                   = {0.5,0.2,0}
 altitude.stringdefs                 = {0.004,0.003,0,0}
 altitude.formats                    = {"%.0f"}
@@ -347,7 +347,7 @@ Add(box)
 radalt                              = CreateElement "ceStringPoly"
 radalt.name                         = create_guid_string()
 radalt.alignment                    = "RightCenter"
-radalt.material                     = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+radalt.material                     = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{44,255,163,255})
 radalt.init_pos                     = {0.35,0.14,0}
 radalt.stringdefs                   = {0.003,0.002,0,0}
 radalt.formats                      = {"R"}
@@ -361,7 +361,7 @@ Add(radalt)
 radalt                              = CreateElement "ceStringPoly"
 radalt.name                         = create_guid_string()
 radalt.alignment                    = "RightCenter"
-radalt.material                     = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+radalt.material                     = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{44,255,163,255})
 radalt.init_pos                     = {0.5,0.14,0}
 radalt.stringdefs                   = {0.003,0.002,0,0}
 radalt.formats                      = {"%.0f"}
@@ -375,7 +375,7 @@ Add(radalt)
 speed                            = CreateElement "ceStringPoly"
 speed.name                       = create_guid_string()
 speed.alignment                  = "RightCenter"
-speed.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+speed.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{44,255,163,255})
 speed.init_pos                   = {-0.5,0.2,0}
 speed.stringdefs                 = {0.004,0.003,0,0}
 speed.formats                    = {"%.0f"}
@@ -408,7 +408,7 @@ Add(box)
 GMDis                            = CreateElement "ceStringPoly"
 GMDis.name                       = create_guid_string()
 GMDis.alignment                  = "LeftCenter"
-GMDis.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+GMDis.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{44,255,163,255})
 GMDis.init_pos                   = {-0.55,0.1,0}
 GMDis.stringdefs                 = {0.003,0.002,0,0}
 GMDis.formats                    = {"a\nM\nG"}
@@ -422,7 +422,7 @@ Add(GMDis)
 GMDis                            = CreateElement "ceStringPoly"
 GMDis.name                       = create_guid_string()
 GMDis.alignment                  = "LeftCenter"
-GMDis.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+GMDis.material                   = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{44,255,163,255})
 GMDis.init_pos                   = {-0.5,0.08,0}
 GMDis.stringdefs                 = {0.003,0.002,0,0}
 GMDis.formats                    = {"%.1f\n","%.1f\n","%.1f"}
@@ -436,7 +436,7 @@ Add(GMDis)
 ALTWARNING                      = CreateElement "ceStringPoly"
 ALTWARNING.name                 = create_guid_string()
 ALTWARNING.alignment            = "CenterCenter"
-ALTWARNING.material             = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+ALTWARNING.material             = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{44,255,163,255})
 ALTWARNING.init_pos             = {0,0,0}
 ALTWARNING.stringdefs           = {0.006,0.006,0,0}
 ALTWARNING.formats              = {"ALTITUDE"}
@@ -450,7 +450,7 @@ Add(ALTWARNING)
 OVERGWARNING                      = CreateElement "ceStringPoly"
 OVERGWARNING.name                 = create_guid_string()
 OVERGWARNING.alignment            = "CenterCenter"
-OVERGWARNING.material             = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
+OVERGWARNING.material             = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{44,255,163,255})
 OVERGWARNING.init_pos             = {0,0,0}
 OVERGWARNING.stringdefs           = {0.006,0.006,0,0}
 OVERGWARNING.formats              = {"OVER G"}

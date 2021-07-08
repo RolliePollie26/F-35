@@ -158,13 +158,22 @@ function update()
         ccParameters.WARNALT:set(0)
     end
 
-    if ccParameters.ACCEL:get() > 6 then
+    if ccParameters.ACCEL:get() > 5 then
         overG:play_continue()
         ccParameters.WARNOVERG:set(1)
         --print_message_to_user("OVER G")
     else
         overG:stop()
         ccParameters.WARNOVERG:set(0)
+    end
+
+    if get_aircraft_draw_argument_value(0) < 1 and ccParameters.SPEED:get() < 80 then
+        stallWarn:play_continue()
+        ccParameters.STALL:set(1)
+        print_message_to_user("STALL WARNING")
+    else
+        stallWarn:stop()
+        ccParameters.STALL:set(0)
     end
 
     if ccParameters.BATT:get() == 1 then
