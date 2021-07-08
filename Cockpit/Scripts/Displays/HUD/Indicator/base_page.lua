@@ -1,5 +1,4 @@
 dofile(LockOn_Options.common_script_path.."elements_defs.lua")
-dofile(LockOn_Options.script_path.."Displays/HUD/Indicator/indication_page.lua")
 
 IND_TEX_PATH = LockOn_Options.script_path.."../IndicationTextures/HUD/" -- Texture Directory
 
@@ -10,7 +9,7 @@ ASPECT_HEIGHT = GetAspect()
 DEFAULT_LEVEL = 4
 DEFAULT_NOCLIP_LEVEL = DEFAULT_LEVEL - 1
 
-BG_MAT = MakeMaterial(nil, {0,255,0,255})
+BG_MAT = MakeMaterial(nil, {0,15,0,255})
 --TEST_TEX = MakeMaterial(IND_TEX_PATH.."TEST.png", {255,255,255,255})
 
 local FONT = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"},{0,255,0,255})
@@ -65,7 +64,7 @@ local INDICES = {0,1,2,0,2,3}
 base_clip                           = CreateElement "ceMeshPoly"
 base_clip.name                      = "hud_base_clip"
 base_clip.primitivetype             = "triangles"
-base_clip.vertices                  = vert_gen(3000,3000)
+base_clip.vertices                  = vert_gen(2500,2500)
 base_clip.indices                   = INDICES
 base_clip.init_pos                  = {0,0,0}
 base_clip.init_rot                  = {0,0,0}
@@ -84,3 +83,5 @@ base_clip.isdraw                    = true
 base_clip.change_opacity            = true
 base_clip.isvisible                 = SHOW_MASKS
 Add(base_clip)
+
+dofile(LockOn_Options.script_path.."Displays/HUD/Indicator/indication_page.lua")
