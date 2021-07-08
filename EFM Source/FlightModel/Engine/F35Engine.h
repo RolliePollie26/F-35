@@ -879,9 +879,9 @@ public:
 		double altTemp = (altFeet / 55000.0);
 		double altTemp2 = (altFeet/50000.0);
 		double machLimited = limit(mach,0.2,1.0);
-		double Tidle = (-24976.0 * machLimited + 9091.5) + (altTemp * 12000.0);
-		double Tmil = (-25958.0 * pow(machLimited,3.0) + 34336.0 * pow(machLimited,2.0) - 14575.0 * machLimited + 58137.0) + (altTemp2 * -42000.0);
-		double Tmax = (26702.0 * pow(machLimited,2.0) + 8661.4 * machLimited + 92756.0) + (altTemp2 * -100000.0);
+		double Tidle = (-28976.0 * machLimited + 9091.5) + (altTemp * 12000.0);
+		double Tmil = (-38958.0 * pow(machLimited,3.0) + 34336.0 * pow(machLimited,2.0) - 14575.0 * machLimited + 58137.0) + (altTemp2 * -42000.0);
+		double Tmax = (43702.0 * pow(machLimited,2.0) + 8661.4 * machLimited + 92756.0) + (altTemp2 * -100000.0);
 
 		double thrustTmp = 0.0;
 		if(m_power3 < 50.0)

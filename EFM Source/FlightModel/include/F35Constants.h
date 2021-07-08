@@ -21,18 +21,18 @@ namespace F35
 	const double		degtorad			= M_PI / 180.0;	// 
 	const double		radiansToDegrees	= 180.0 / M_PI;	// Conversion factor from radians to degrees - use value from math.h
 
-	const double		wingSpan_m				= 10.00;		// F-16 wing-span (m)
+	const double		wingSpan_m				= 11;		// F-16 wing-span (m)
 	const double		wingArea_m2				= 27.87;		// F-16 wing area (m^2)
 
-	const double		wing_wetted_area_FT2				= 341.1; // from JSBSIM readme
+	const double		wing_wetted_area_FT2				= 460.0; // from JSBSIM readme
 	const double		ventral_fin_each_wetted_area_FT2	= 15.3; // from JSBSIM readme
-	const double		horiz_tail_wetted_area_FT2			= 127.8; // from JSBSIM readme
-	const double		vertical_tail_wetted_area_FT2		= 128.7; // from JSBSIM readme
+	const double		horiz_tail_wetted_area_FT2			= 100.0; // from JSBSIM readme
+	const double		vertical_tail_wetted_area_FT2		= 105.0; // from JSBSIM readme
 	const double		fuselage_wetted_area_FT2			= 775.8; // from JSBSIM readme
 
-	const double		length_m				= 15.03;
-	const double		height_m				= 5.09;
-	const double		meanChord_m				= 3.450336;		// mean aerodynamic chord (m) 
+	const double		length_m				= 15.7;
+	const double		height_m				= 4.4;
+	const double		meanChord_m				= 4.532376;		// mean aerodynamic chord (m) 
 	const double		airbrakeArea_m2			= 1.48645;		// based on ~16ft^2 -> m^2
 
 	//note: need dynamic CG to calculations: lift position as function of speed, mass balance by fuel/payload mass
@@ -54,7 +54,7 @@ namespace F35
 	const double		lbf_to_N				= 4.44822162825; // multiplier, pound force to Newtons
 	const double		lbf_to_Nm				= 1.35581795; // multiplier, "pound-foot" to Newtonmeters
 
-	const double		weight_empty_kg			= 9207.9;
+	const double		weight_empty_kg			= 13290;
 	const double		internal_fuel_kg		= 2685.2;
 
 	const double		gallon_to_litre			= 3.7854118;

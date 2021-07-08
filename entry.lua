@@ -39,10 +39,13 @@ InputProfiles =
 	{
 		["F-35A"] = current_mod_path .. '/Input/F-35A',
 	},
---[[ binaries 	 =
+binaries 	 =
 {
-'F-35A',
-}, ]]
+	--'F35Cockpit',
+	'F35A',
+	--'F35B',
+	--'F35C',
+},
 	
 })
 ----------------------------------------------------------------------------------------
@@ -53,19 +56,31 @@ mount_vfs_texture_path	(current_mod_path.."/Skins/1/ME")--for simulator loading 
 
 dofile(current_mod_path.."/Views.lua")
 
---[[ local cfg_path = current_mod_path .."/FM/config.lua"
+local cfg_path = current_mod_path .."/FM/config.lua"
 dofile(cfg_path)
-FM[1] 			= self_ID
-FM[2] 			= 'F-35A'
-FM.config_path 	= cfg_path
-FM.old 			= 6 ]]
+F35A[1] 			= self_ID
+F35A[2] 			= 'F35A'
+F35A.config_path 	= cfg_path
+F35A.old 			= 6
+-------------------------------------------------------------------------------------
+--[[ F35B[1] 			= self_ID
+F35B[2] 			= 'F35B'
+F35B.config_path 	= cfg_path
+F35B.old 			= 6
+-------------------------------------------------------------------------------------
+F35C[1] 			= self_ID
+F35C[2] 			= 'F35C'
+F35C.config_path 	= cfg_path
+F35C.old 			= 6 ]]
 -------------------------------------------------------------------------------------
 make_view_settings('F-35A', ViewSettings, SnapViews)
 --make_view_settings('F-35B', ViewSettings, SnapViews)
 --make_view_settings('F-35C', ViewSettings, SnapViews)
---make_flyable('F-35A',current_mod_path..'/Cockpit/Scripts/',FM, current_mod_path..'/comm.lua')
-make_flyable('F-35A',current_mod_path..'/Cockpit/Scripts/',nil, current_mod_path..'/comm.lua')
---make_flyable('F-35B',current_mod_path..'/Cockpit/Scripts/', FM, current_mod_path..'/comm.lua')
---make_flyable('F-35C',current_mod_path..'/Cockpit/Scripts/', FM, current_mod_path..'/comm.lua')
+make_flyable('F-35A',current_mod_path..'/Cockpit/Scripts/',F35A, current_mod_path..'/comm.lua')
+--make_flyable('F-35B',current_mod_path..'/Cockpit/Scripts/',F35B, current_mod_path..'/comm.lua')
+--make_flyable('F-35C',current_mod_path..'/Cockpit/Scripts/',F35C, current_mod_path..'/comm.lua')
+--make_flyable('F-35A',current_mod_path..'/Cockpit/Scripts/',nil, current_mod_path..'/comm.lua')
+--make_flyable('F-35B',current_mod_path..'/Cockpit/Scripts/',cil, current_mod_path..'/comm.lua')
+--make_flyable('F-35C',current_mod_path..'/Cockpit/Scripts/',cil, current_mod_path..'/comm.lua')
 -------------------------------------------------------------------------------------
 plugin_done()

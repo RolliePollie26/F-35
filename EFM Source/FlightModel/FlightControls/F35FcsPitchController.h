@@ -80,7 +80,7 @@ protected:
 
 		double longStickCommand_G = getPitchRateCommand(longStickForce);
 		double longStickCommandWithTrim_G = trimPitch - longStickCommand_G;
-		double longStickCommandWithTrimLimited_G = limit(longStickCommandWithTrim_G, -4.0, 8.0);
+		double longStickCommandWithTrimLimited_G = limit(longStickCommandWithTrim_G, -9.0, 25.0);
 
 		double longStickCommandWithTrimLimited_G_Rate = 4.0 * (longStickCommandWithTrimLimited_G - m_stickCommandPosFiltered);
 		m_stickCommandPosFiltered += (longStickCommandWithTrimLimited_G_Rate * frameTime);
@@ -89,8 +89,8 @@ protected:
 	// Angle of attack limiter logic
 	double angle_of_attack_limiter(const double alphaFiltered, const double pitchRateCommand) const
 	{
-		double topLimit = limit((alphaFiltered - 22.5) * 0.69, 0.0, 99999.0);
-		double bottomLimit = limit((alphaFiltered - 15.0 + pitchRateCommand) * 0.322, 0.0, 99999.0);
+		double topLimit = limit((alphaFiltered - 10) * 0.69, 0.0, 99999.0);
+		double bottomLimit = limit((alphaFiltered - 5 + pitchRateCommand) * 0.322, 0.0, 99999.0);
 
 		return (topLimit + bottomLimit);
 	}
@@ -132,7 +132,7 @@ public:
 		else
 		{
 			//return 0.231;
-			return 0.334;
+			return 0.234;
 		}
 	}
 
@@ -156,12 +156,12 @@ public:
 
 		// above alpha 29 roll control is disengaged, yaw control automatic mode?
 
-		double alphaLimited = limit(bodyState->alpha_DEG, -5.0, 30.0);
-		double alphaLimitedRate = 10.0 * (alphaLimited - m_alphaFiltered);
+		double alphaLimited = limit(bodyState->alpha_DEG, -10.0, 30.0);
+		double alphaLimitedRate = 40.0 * (alphaLimited - m_alphaFiltered);
 		m_alphaFiltered += (alphaLimitedRate * frameTime);
 
 		double pitchRateWashedOut = bodyState->getPitchRateDegs();
-		double pitchRateCommand = pitchRateWashedOut * 0.7 * dynamicPressureScheduled;
+		double pitchRateCommand = pitchRateWashedOut * 0.9 * dynamicPressureScheduled;
 
 		// TODO: 
 		// pilot activated pitch limiter override (max g increase)
@@ -178,10 +178,10 @@ public:
 		double gLimiterCommand = -(azFiltered + (pitchRateWashedOut * 0.2));
 		double finalCombinedCommand = dynamicPressureScheduled * (2.5 * (m_stickCommandPosFiltered + limiterCommand + gLimiterCommand));
 
-		double finalCombinedCommandFilteredLimited = limit(finalCombinedCommand, -25.0, 25.0);
+		double finalCombinedCommandFilteredLimited = limit(finalCombinedCommand, -17.5, 25.5);
 		finalCombinedCommandFilteredLimited += finalCombinedCommand;
 		double finalPitchCommandTotal = finalCombinedCommandFilteredLimited;
-		finalPitchCommandTotal += (0.5 * m_alphaFiltered);
+		finalPitchCommandTotal += (0.9 * m_alphaFiltered);
 
 		// TODO:
 		// replace constant 0.5 with linear function:

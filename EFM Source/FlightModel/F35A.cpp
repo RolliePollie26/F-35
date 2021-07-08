@@ -691,9 +691,13 @@ void ed_fm_set_draw_args_v2(float * drawargs, size_t size)
 
 	drawargs[17] = F35::FlightControls.getRudderDraw(); // right rudder
 
+	drawargs[21] = F35::FlightControls.getAirbrakeRSDraw();
+	drawargs[21] = F35::FlightControls.getAirbrakeLSDraw();
+
 	drawargs[22] = F35::Airframe.getRefuelingDoorAngle(); // refueling door (not implemented)
 
-	drawargs[28] = (float)F35::EMS.getAfterburnerDraw(); // afterburner right engine
+	drawargs[28] = (float)F35::EMS.getNozzlePos();
+	drawargs[89] = (float)F35::EMS.getAfterburnerDraw(); // afterburner right engine
 	//drawargs[290..291].f // nozzle rotation?
 	//drawargs[290].f = (float)F35::EMS.getNozzlePos(); // nozzle rotation?
 	//drawargs[291].f = (float)F35::EMS.getNozzlePos(); // nozzle rotation?
@@ -701,12 +705,12 @@ void ed_fm_set_draw_args_v2(float * drawargs, size_t size)
 
 	drawargs[38] = F35::Airframe.getCanopyAngle(); // draw angle of canopy {0=closed;0.9=elevated;1=no draw}
 
-	drawargs[50] = F35::Airframe.getEjectingSeatDraw(); // ejecting seat in plane
+	// drawargs[50] = F35::Airframe.getEjectingSeatDraw(); // ejecting seat in plane
 
 	//drawargs[182].f // right-side brake flaps 0..1
 	//drawargs[186].f // left-side brake flaps 0..1
-	drawargs[182] = F35::FlightControls.getAirbrakeRSDraw();
-	drawargs[186] = F35::FlightControls.getAirbrakeLSDraw();
+	// drawargs[182] = F35::FlightControls.getAirbrakeRSDraw();
+	// drawargs[186] = F35::FlightControls.getAirbrakeLSDraw();
 
 	// navigation lights
 	drawargs[49] = F35::Airframe.isNavigationLight();
