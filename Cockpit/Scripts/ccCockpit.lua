@@ -152,7 +152,6 @@ function update()
     if get_aircraft_draw_argument_value(0) < 1 and ccParameters.RALT:get() < 50 then
         altWarn:play_continue()
         ccParameters.WARNALT:set(1)
-        --print_message_to_user("ALTITUDE")
     else
         altWarn:stop()
         ccParameters.WARNALT:set(0)
@@ -161,7 +160,6 @@ function update()
     if ccParameters.ACCEL:get() > 5 then
         overG:play_continue()
         ccParameters.WARNOVERG:set(1)
-        --print_message_to_user("OVER G")
     else
         overG:stop()
         ccParameters.WARNOVERG:set(0)
