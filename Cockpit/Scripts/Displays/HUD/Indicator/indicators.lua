@@ -1,5 +1,5 @@
 -- Airspeed
-local spd                       = hudString(-1.55, 0.2)
+local spd                       = hudString(-1.55, -0.3)
 spd.alignment                   = "RightCenter"
 spd.stringdefs                  = TEXT_SIZE.NORMAL
 spd.formats                     = {"%.0f"}
@@ -10,7 +10,7 @@ spd.controllers                 = {
 }
 Add(spd)
 
-local box                       = hudBox(-1.5, 0.2, 0.4, 0.2)
+local box                       = hudBox(-1.5, -0.3, 0.4, 0.2)
 box.alignment                   = "RightCenter"
 box.thickness                   = 5.0
 box.fuzziness                   = 1.0
@@ -19,7 +19,7 @@ box.controllers                 = {{"opacity_using_parameter",0}}
 Add(box)
 
 -- Mach number, G-force, and angle of attack
-GMDis                            = hudString(-2, 0)
+GMDis                            = hudString(-2, -0.5)
 GMDis.alignment                  = "RightTop"
 GMDis.stringdefs                 = TEXT_SIZE.NORMAL
 GMDis.formats                    = {"M\nG\na"}
@@ -27,7 +27,7 @@ GMDis.element_params             = {"","BATT"}
 GMDis.controllers                = {{"text_using_parameter",0},{"opacity_using_parameter",1}}
 Add(GMDis)
 
-GMDis                            = hudString(-1.5, 0)
+GMDis                            = hudString(-1.5, -0.5)
 GMDis.alignment                  = "RightTop"
 GMDis.stringdefs                 = TEXT_SIZE.NORMAL
 GMDis.formats                    = {"%.1f\n","%.1f\n","%.1f"}
@@ -36,7 +36,7 @@ GMDis.controllers                = {{"text_using_parameter",0},{"text_using_para
 Add(GMDis)
 
 -- Barometric altitude
-local alt                       = hudString(2, 0.2)
+local alt                       = hudString(2, -0.3)
 alt.alignment                   = "RightCenter"
 alt.stringdefs                  = TEXT_SIZE.NORMAL
 alt.formats                     = {"%.0f"}
@@ -47,7 +47,7 @@ alt.controllers                 = {
 }
 Add(alt)
 
-local box                       = hudBox(2.05, 0.2, 0.6, 0.2)
+local box                       = hudBox(2.05, -0.3, 0.6, 0.2)
 box.alignment                   = "RightCenter"
 box.thickness                   = 5.0
 box.fuzziness                   = 1.0
@@ -56,7 +56,7 @@ box.controllers                 = {{"opacity_using_parameter",0}}
 Add(box)
 
 -- Radar altitude
-radalt                              = hudString(1.5, 0)
+radalt                              = hudString(1.5, -0.5)
 radalt.alignment                    = "RightTop"
 radalt.stringdefs                   = TEXT_SIZE.NORMAL
 radalt.formats                      = {"R"}
@@ -64,7 +64,7 @@ radalt.element_params               = {"","HMD_PWR"}
 radalt.controllers                  = {{"text_using_parameter",0},{"opacity_using_parameter",1}}
 Add(radalt)
 
-radalt                              = hudString(2, 0)
+radalt                              = hudString(2, -0.5)
 radalt.alignment                    = "RightTop"
 radalt.stringdefs                   = TEXT_SIZE.NORMAL
 radalt.formats                      = {"%.0f"}
