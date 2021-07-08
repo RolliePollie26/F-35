@@ -74,14 +74,14 @@ for i=0,350,10 do
 end
 function update_heading_lines()
     local hmd_pwr = HMD_PWR:get()
-    local hdg = sensor_data.getHeading()
+    local hdg = -sensor_data.getHeading()
     for i,params in pairs(HEADING_LINE_PARAMS) do
-        local hdg_diff = (hdg - math.rad(i))
+        local hdg_diff = (math.rad(i) - hdg)
         -- Normalize hdg_diff to between -PI and PI
-        if hdg_diff > math.pi then
+        while hdg_diff > math.pi do
             hdg_diff = hdg_diff - 2.0 * math.pi
         end
-        if hdg_diff < -math.pi then
+        while hdg_diff < -math.pi do
             hdg_diff = hdg_diff + 2.0 * math.pi
         end
         if math.abs(hdg_diff) > math.rad(25) then

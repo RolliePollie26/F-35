@@ -11,8 +11,8 @@ local sensor_data = get_base_data()
 local update_time_step = 0.02
 make_default_activity(update_time_step)
 
-local math = 
-            {  
+local math =
+            {
                 ias_conversion_to_knots = 1.9504132,
                 ias_conversion_to_kmh = 3.6,
                 DEGREE_TO_RAD = 0.0174532925199433,
@@ -20,7 +20,7 @@ local math =
                 METERS_TO_INCHES = 3.2808,
 }
 
-local ccParameters = 
+local ccParameters =
                     {
                         ccInit = get_param_handle("ccInit"),
                         ID_U_UID = get_param_handle("ID_U_UID"),
@@ -145,7 +145,7 @@ function update()
     ccParameters.ACCEL:set(sensor_data.getVerticalAcceleration())
     ccParameters.VSPD:set(sensor_data.getVerticalVelocity())
     ccParameters.SPEED:set(sensor_data.getIndicatedAirSpeed() * math.ias_conversion_to_knots)
-    ccParameters.HDG:set(sensor_data.getHeading() * math.RADIANS_TO_DEGREES)
+    ccParameters.HDG:set((-sensor_data.getHeading() * math.RADIANS_TO_DEGREES) % 360)
     ccParameters.MHDG:set(sensor_data.getMagneticHeading() * math.RADIANS_TO_DEGREES)
     ccParameters.MACH:set(sensor_data.getMachNumber())
 
