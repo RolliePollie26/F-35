@@ -56,3 +56,108 @@ function hudString(x, y)
     elem.material                    = DEFAULT_FONT
     return setupHudElem(elem, x, y)
 end
+
+-- Create a HUD pitch line for horizon
+function hudPitchLineHorizon(x, y, w, h, gap)
+	local half_w = w / 2
+	local half_h = h / 2
+    local elem                   = CreateElement "ceMeshPoly"
+    elem.material                = DEFAULT_MAT
+    elem.isvisible               = true
+    elem.primitivetype           = "triangles"
+    elem.indices                 = {
+        -- Left Line
+        0, 1, 2,
+        0, 2, 3,
+        -- Right Line
+        4, 5, 6,
+        4, 6, 7,
+    }
+    elem.vertices                = {
+        -- Left Line
+        {-half_w, half_h}, {-gap , half_h},
+        {-gap , -half_h}, {-half_w , -half_h},
+        -- Right Line
+        {half_w, half_h}, {gap , half_h},
+        {gap , -half_h}, {half_w , -half_h},
+    }
+    return setupHudElem(elem, x, y)
+end
+
+-- Create a HUD pitch line for ascending pitch
+function hudPitchLineAscend(x, y, w, h, gap, tick)
+	local half_w = w / 2
+	local half_h = h / 2
+    local elem                   = CreateElement "ceMeshPoly"
+    elem.material                = DEFAULT_MAT
+    elem.isvisible               = true
+    elem.primitivetype           = "triangles"
+    elem.indices                 = {
+        -- Left Line
+        0, 1, 2,
+        0, 2, 3,
+        -- Right Line
+        4, 5, 6,
+        4, 6, 7,
+        -- Left Tick
+        8, 9, 10,
+        8, 10, 11,
+        -- Right Tick
+        12, 13, 14,
+        12, 14, 15
+    }
+    elem.vertices                = {
+        -- Left Line
+        {-half_w, half_h}, {-gap , half_h},
+        {-gap , -half_h}, {-half_w , -half_h},
+        -- Right Line
+        {half_w, half_h}, {gap , half_h},
+        {gap , -half_h}, {half_w , -half_h},
+        -- Left Tick
+        {-half_w, -half_h}, {-half_w+h, -half_h},
+        {-half_w+h, -half_h-tick}, {-half_w, -half_h-tick},
+        -- Right Tick
+        {half_w-h, -half_h}, {half_w, -half_h},
+        {half_w, -half_h-tick}, {half_w-h, -half_h-tick},
+    }
+    return setupHudElem(elem, x, y)
+end
+
+-- Create a HUD pitch line for descending pitch
+function hudPitchLineDescend(x, y, w, h, gap, tick)
+	local half_w = w / 2
+	local half_h = h / 2
+    local elem                   = CreateElement "ceMeshPoly"
+    elem.material                = DEFAULT_MAT
+    elem.isvisible               = true
+    elem.primitivetype           = "triangles"
+    elem.indices                 = {
+        -- Left Line
+        0, 1, 2,
+        0, 2, 3,
+        -- Right Line
+        4, 5, 6,
+        4, 6, 7,
+        -- Left Tick
+        8, 9, 10,
+        8, 10, 11,
+        -- Right Tick
+        12, 13, 14,
+        12, 14, 15
+    }
+    elem.vertices                = {
+        -- Left Line
+        {-half_w, half_h}, {-gap , half_h},
+        {-gap , -half_h}, {-half_w , -half_h},
+        -- Right Line
+        {half_w, half_h}, {gap , half_h},
+        {gap , -half_h}, {half_w , -half_h},
+        -- Left Tick
+        {-gap-h, half_h+tick}, {-gap, half_h+tick},
+        {-gap, half_h}, {-gap-h, half_h},
+        -- Right Tick
+        {gap, half_h+tick}, {gap+h, half_h+tick},
+        {gap+h, half_h}, {gap, half_h},
+    }
+    return setupHudElem(elem, x, y)
+end

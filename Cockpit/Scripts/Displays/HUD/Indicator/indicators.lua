@@ -134,7 +134,14 @@ end
 
 -- Build pitch lines
 for i=-90,90,5 do
-    local line                      = hudRect(0.0, 0.0, 1, 0.02)
+    local line
+    if i == 0 then
+        line = hudPitchLineHorizon(0.0, 0.0, 3, 0.02, 0.2)
+    elseif i > 0 then
+        line = hudPitchLineAscend(0.0, 0.0, 1.2, 0.02, 0.2, 0.06)
+    else
+        line = hudPitchLineDescend(0.0, 0.0, 1.2, 0.02, 0.2, 0.06)
+    end
     line.element_params             = {"PL_X_"..i,"PL_Y_"..i,"PL_R_"..i,"PL_O_"..i}
     line.controllers                = {
         {"move_left_right_using_parameter",0,1},
@@ -144,18 +151,18 @@ for i=-90,90,5 do
     }
     Add(line)
 
-    text_datas = {
-        {name = "L", alignment = "RightCenter"},
-        {name = "R", alignment = "LeftCenter"}
-    }
-    for text_i,text_data in ipairs(text_datas) do
+    if i ~= 0 then
         local text                      = hudString(0.0, 0.0)
-        text.alignment                  = text_data.alignment
+        if i > 0 then
+            text.alignment                  = "LeftTop"
+        else
+            text.alignment                  = "RightBottom"
+        end
         text.stringdefs                 = TEXT_SIZE.NORMAL
         text.formats                    = {tostring(i)}
         text.element_params             = {
-            "PL_"..text_data.name.."X_"..i,
-            "PL_"..text_data.name.."Y_"..i,
+            "PL_TX_"..i,
+            "PL_TY_"..i,
             "PL_R_"..i,
             "PL_O_"..i,
             ""

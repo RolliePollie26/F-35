@@ -115,11 +115,8 @@ for i=-90,90,5 do
         x = get_param_handle("PL_X_"..i),
         y = get_param_handle("PL_Y_"..i),
         -- Left text
-        lx = get_param_handle("PL_LX_"..i),
-        ly = get_param_handle("PL_LY_"..i),
-        -- Right text
-        rx = get_param_handle("PL_RX_"..i),
-        ry = get_param_handle("PL_RY_"..i)
+        tx = get_param_handle("PL_TX_"..i),
+        ty = get_param_handle("PL_TY_"..i)
     }
 end
 function update_pitch_lines()
@@ -130,26 +127,22 @@ function update_pitch_lines()
     local roll_cos = math.cos(roll)
     for i,params in pairs(PITCH_LINE_PARAMS) do
         local pitch_diff = pitch - math.rad(-i)
-        -- Normalize pitch_diff to between -PI/2 and PI/2
-        if pitch_diff > math.pi/2.0 then
-            pitch_diff = pitch_diff - math.pi
-        end
-        if pitch_diff < -math.pi/2.0 then
-            pitch_diff = pitch_diff + math.pi
-        end
         if pitch_diff > math.rad(8) or pitch_diff < -math.rad(16) then
             -- Hide pitch lader outside expected region
             params.o:set(0)
         else
-            local text_offset = 0.05
+            local text_offset
+            if i > 0 then
+                text_offset = 0.06
+            else
+                text_offset = 0.05
+            end
             params.o:set(hmd_pwr)
             params.r:set(roll)
             params.x:set(-pitch_diff * roll_sin)
             params.y:set(pitch_diff * roll_cos)
-            params.lx:set(-text_offset * roll_cos - pitch_diff * roll_sin)
-            params.ly:set(pitch_diff * roll_cos - text_offset * roll_sin)
-            params.rx:set(text_offset * roll_cos - pitch_diff * roll_sin)
-            params.ry:set(pitch_diff * roll_cos + text_offset * roll_sin)
+            params.tx:set(-text_offset * roll_cos - pitch_diff * roll_sin)
+            params.ty:set(pitch_diff * roll_cos - text_offset * roll_sin)
         end
     end
 end
