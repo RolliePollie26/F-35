@@ -5,13 +5,14 @@ ignore_features(res.keyCommands,{
 join(res.keyCommands,{
 
 {combos = {{key = 'B', reformers = {'LCtrl'}}}, down = 10020, name = _('Weapons Bay TOGGLE'), category = _('Weapons')},
+{combos = {{key = 'Home', reformers = {'RShift'}}}, down = 10015, name = _('Engine START'), category = _('FW135PW100')},
 
 -- Night Vision Goggles
 {combos = {{key = 'N'}}	, down = iCommandViewNightVisionGogglesOn,	 name = _('Toggle Night Vision Goggles'), 	category = _('NVG')},
 {combos = {{key = 'N', reformers = {'RCtrl'}}}, pressed = iCommandPlane_Helmet_Brightess_Up  , name = _('Gain NVG up')  , category = _('NVG')},
 {combos = {{key = 'N', reformers = {'RAlt'}}} , pressed = iCommandPlane_Helmet_Brightess_Down, name = _('Gain NVG down'), category = _('NVG')},
 
-{combos = {{key = '.', reformers = {'LCtrl'}}}, down = 3012, name = _('Parking Brake TOGGLE'), category = _('F-35 EFM')},
+{combos = {{key = '.', reformers = {'LCtrl'}}}, down = 10007, name = _('Parking Brake TOGGLE'), category = _('Systems')},
 
 -- Autopilot
 {combos = {{key = 'A'}, {key = '1', reformers = {'LAlt'}}}, down = iCommandPlaneAutopilot, name = _('Autopilot - Attitude Hold'), category = _('Autopilot')},
