@@ -1,7 +1,6 @@
 dofile(LockOn_Options.common_script_path.."elements_defs.lua")
 
---local DEFAULT_COLOR = {44,255,163,255}
-DEFAULT_COLOR = {0,255,0,255}
+DEFAULT_COLOR = {44,255,163,255}
 DEFAULT_MAT = MakeMaterial(nil, DEFAULT_COLOR)
 DEFAULT_FONT = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"}, DEFAULT_COLOR)
 
