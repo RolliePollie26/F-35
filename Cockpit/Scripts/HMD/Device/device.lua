@@ -109,7 +109,7 @@ function update_heading_lines()
             params.o:set(0)
             params.to:set(0)
         else
-            local hdg_offset = hdg_diff / 2.0
+            local hdg_offset = hdg_diff / (math.pi / 2)
             params.x:set(hdg_offset)
             params.o:set(hmd_pwr)
             if math.abs(hdg_diff) < math.rad(3) then
@@ -151,6 +151,7 @@ function update_pitch_lines()
             -- Hide pitch lader outside expected region
             params.o:set(0)
         else
+            local pitch_offset = pitch_diff / (math.pi / 2)
             local text_offset
             if i > 0 then
                 text_offset = 0.06
@@ -159,10 +160,10 @@ function update_pitch_lines()
             end
             params.o:set(hmd_pwr)
             params.r:set(roll)
-            params.x:set(-pitch_diff * roll_sin)
-            params.y:set(pitch_diff * roll_cos)
-            params.tx:set(-text_offset * roll_cos - pitch_diff * roll_sin)
-            params.ty:set(pitch_diff * roll_cos - text_offset * roll_sin)
+            params.x:set(-pitch_offset * roll_sin)
+            params.y:set(pitch_offset * roll_cos)
+            params.tx:set(-text_offset * roll_cos - pitch_offset * roll_sin)
+            params.ty:set(pitch_offset * roll_cos - text_offset * roll_sin)
         end
     end
 end
