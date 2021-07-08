@@ -18,6 +18,23 @@ box.element_params              = {"BATT"}
 box.controllers                 = {{"opacity_using_parameter",0}}
 Add(box)
 
+-- Mach number, G-force, and angle of attack
+GMDis                            = hudString(-2, 0)
+GMDis.alignment                  = "RightTop"
+GMDis.stringdefs                 = TEXT_SIZE.NORMAL
+GMDis.formats                    = {"M\nG\na"}
+GMDis.element_params             = {"","BATT"}
+GMDis.controllers                = {{"text_using_parameter",0},{"opacity_using_parameter",1}}
+Add(GMDis)
+
+GMDis                            = hudString(-1.5, 0)
+GMDis.alignment                  = "RightTop"
+GMDis.stringdefs                 = TEXT_SIZE.NORMAL
+GMDis.formats                    = {"%.1f\n","%.1f\n","%.1f"}
+GMDis.element_params             = {"MACH","ACCEL","AOA","BATT"}
+GMDis.controllers                = {{"text_using_parameter",0},{"text_using_parameter",1},{"text_using_parameter",2},{"opacity_using_parameter",3}}
+Add(GMDis)
+
 -- Barometric altitude
 local alt                       = hudString(2, 0.2)
 alt.alignment                   = "RightCenter"
@@ -37,6 +54,23 @@ box.fuzziness                   = 1.0
 box.element_params              = {"BATT"}
 box.controllers                 = {{"opacity_using_parameter",0}}
 Add(box)
+
+-- Radar altitude
+radalt                              = hudString(1.5, 0)
+radalt.alignment                    = "RightTop"
+radalt.stringdefs                   = TEXT_SIZE.NORMAL
+radalt.formats                      = {"R"}
+radalt.element_params               = {"","HMD_PWR"}
+radalt.controllers                  = {{"text_using_parameter",0},{"opacity_using_parameter",1}}
+Add(radalt)
+
+radalt                              = hudString(2, 0)
+radalt.alignment                    = "RightTop"
+radalt.stringdefs                   = TEXT_SIZE.NORMAL
+radalt.formats                      = {"%.0f"}
+radalt.element_params               = {"RALT","HMD_PWR"}
+radalt.controllers                  = {{"text_using_parameter",0},{"opacity_using_parameter",1}}
+Add(radalt)
 
 -- Heading indicator
 local hdg                      = hudString(0, 1)
@@ -58,6 +92,11 @@ box.element_params              = {"BATT"}
 box.controllers                 = {{"opacity_using_parameter",0}}
 Add(box)
 
+local line                      = hudRect(0.0, 0.88, 0.02, 0.2)
+line.element_params             = {"BATT"}
+line.controllers                = {{"opacity_using_parameter",0}}
+Add(line)
+
 -- Build heading lines
 for i=0,350,10 do
     local line                      = hudRect(0.0, 0.9, 0.02, 0.1)
@@ -68,8 +107,8 @@ for i=0,350,10 do
     }
     Add(line)
 
-    local text                      = hudString(0.0, 1.1)
-    text.alignment                  = "CenterCenter"
+    local text                      = hudString(0.0, 1.0)
+    text.alignment                  = "CenterBottom"
     text.stringdefs                 = TEXT_SIZE.NORMAL
     text.formats                    = {tostring(i/10)}
     text.element_params             = {"HL_TX_"..i,"HL_TO_"..i,""}
