@@ -41,4 +41,4 @@ base_clip.change_opacity            = true
 base_clip.isvisible                 = SHOW_MASKS
 Add(base_clip)
 
-dofile(LockOn_Options.script_path.."Displays/HUD/Indicator/indication_page.lua")
+dofile(LockOn_Options.script_path.."Displays/HUD/Indicator/indicators.lua")

@@ -1,5 +1,3 @@
-dofile(LockOn_Options.script_path.."Displays/HUD/Indicator/definitions.lua")
-
 -- Airspeed
 local spd                       = hudString(-1.55, 0.2)
 spd.alignment                   = "RightCenter"
