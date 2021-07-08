@@ -1,3 +1,9 @@
 
 *.psd
 *.dds
+*.exp
+*.lib
+*.pdb
+EFM Source/.vs/F35/v16/.suo
+*.db
+*.ipch
