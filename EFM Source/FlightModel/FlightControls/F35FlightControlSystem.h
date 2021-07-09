@@ -147,8 +147,8 @@ public:
 		, lefActuator(25, -2, 25) // <- FLCS diag
 		, flaperonActuatorLeft(80, -23, 20) // <- FLCS diag, 21.5 flap limit in old code (TP 1538)
 		, flaperonActuatorRight(80, -23, 20) // <- FLCS diag, 21.5 flap limit in old code (TP 1538)
-		, elevonActuatorLeft(80, -25, 25) // <- FLCS diag, differential limit smaller (5.38deg)
-		, elevonActuatorRight(80, -25, 25) // <- FLCS diag, differential limit smaller (5.38deg)
+		, elevonActuatorLeft(20, -25, 25) // <- FLCS diag, differential limit smaller (5.38deg)
+		, elevonActuatorRight(20, -25, 25) // <- FLCS diag, differential limit smaller (5.38deg)
 		, rudderActuator(120.0, -30.0, 30.0) // <- FLCS diag
 		, airbrakeActuator(30.0, 0, 60.0) // <- check actuator rate
 		, flapActuator(10.0, 0, 20.0) // temporary only until fixing integration problem

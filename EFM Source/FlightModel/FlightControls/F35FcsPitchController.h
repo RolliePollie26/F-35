@@ -89,7 +89,7 @@ protected:
 	// Angle of attack limiter logic
 	double angle_of_attack_limiter(const double alphaFiltered, const double pitchRateCommand) const
 	{
-		double topLimit = limit((alphaFiltered - 10) * 0.69, 0.0, 99999.0);
+		double topLimit = limit((alphaFiltered - 6) * 0.69, 0.0, 99999.0);
 		double bottomLimit = limit((alphaFiltered - 5 + pitchRateCommand) * 0.322, 0.0, 99999.0);
 
 		return (topLimit + bottomLimit);
@@ -143,11 +143,11 @@ public:
 		double longStickInputForce = 0.0;
 		if (longStickInput > 0.0)
 		{
-			longStickInputForce = longStickInput * 80.0;
+			longStickInputForce = longStickInput * 120.0;
 		}
 		else
 		{
-			longStickInputForce = longStickInput * 180.0;
+			longStickInputForce = longStickInput * 210.0;
 		}
 		m_longStickForce = limit(longStickInputForce, -180.0, 80.0);
 		fcs_pitch_controller_force_command(m_longStickForce, trimState->trimPitch, frameTime);

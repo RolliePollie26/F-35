@@ -696,8 +696,8 @@ void ed_fm_set_draw_args_v2(float * drawargs, size_t size)
 
 	drawargs[22] = F35::Airframe.getRefuelingDoorAngle(); // refueling door (not implemented)
 
-	drawargs[28] = (float)F35::EMS.getNozzlePos();
-	drawargs[89] = (float)F35::EMS.getAfterburnerDraw(); // afterburner right engine
+	drawargs[28] = F35::EMS.getNozzlePos();
+	drawargs[89] = F35::EMS.getAfterburnerDraw(); // afterburner right engine
 	//drawargs[290..291].f // nozzle rotation?
 	//drawargs[290].f = (float)F35::EMS.getNozzlePos(); // nozzle rotation?
 	//drawargs[291].f = (float)F35::EMS.getNozzlePos(); // nozzle rotation?
