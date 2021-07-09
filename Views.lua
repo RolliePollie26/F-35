@@ -1,7 +1,7 @@
 ViewSettings = {
 	Cockpit = {
 	[1] = {-- player slot 1 --Current view is a bit fucked its too level with the frame might have to unfuck the external...
-		CockpitLocalPoint = {4.203000,0.402000,0.000000},--{7.105000,1.350000,0.000000}/////--{6.957000,1.322000,0.000000} with dummy at 0,0,0
+		CockpitLocalPoint = {4.203000,0.405000,0.000000},--{7.105000,1.350000,0.000000}/////--{6.957000,1.322000,0.000000} with dummy at 0,0,0
 		CameraViewAngleLimits  = {20.000000,140.000000},
 		CameraAngleRestriction = {false	   ,90.000000,0.500000},
 		CameraAngleLimits      = {200,-80.000000,110.000000},--Kopf drehen = links rechts,runter,hoch
