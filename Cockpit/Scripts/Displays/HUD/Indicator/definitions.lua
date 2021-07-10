@@ -4,8 +4,19 @@ DEFAULT_COLOR = {44,255,163,255}
 DEFAULT_MAT = MakeMaterial(nil, DEFAULT_COLOR)
 DEFAULT_FONT = MakeFont({used_DXUnicodeFontData = "font_cockpit_usa"}, DEFAULT_COLOR)
 
+-- Convert degrees to milliradians HUD scale
+HUD_DEGREE = 2000.0 * math.pi / 360.0
+-- Use this to scale degree parameters
+-- TODO: Figure out why this is not 1.0 / HUD_DEGREE
+HUD_PARAM_SCALE = 0.31/HUD_DEGREE
+
+function create_text_size(scale)
+    return {scale, scale * 2/3, 0, 0}
+end
+
 TEXT_SIZE = {
-    NORMAL = {0.015,0.01,0,0}
+    NORMAL = create_text_size(0.015),
+    LARGE = create_text_size(0.02),
 }
 
 -- Set common HUD element properties
@@ -26,7 +37,12 @@ function hudBox(x, y, w, h)
     local elem               = CreateElement "ceSMultiLine"
     elem.material            = DEFAULT_MAT
     elem.isdraw              = true
-    elem.indices             = {0, 1, 1, 2, 2, 3, 3, 0}
+    elem.indices             = {
+        0, 1,
+        1, 2,
+        2, 3,
+        3, 0
+    }
     elem.vertices            = {
         {-half_w, -half_h}, {-half_w, half_h},
         {half_w, half_h}, {half_w, -half_h}
@@ -42,7 +58,10 @@ function hudRect(x, y, w, h)
     elem.material                = DEFAULT_MAT
     elem.isvisible               = true
     elem.primitivetype           = "triangles"
-    elem.indices                 = {0, 1, 2, 0, 2, 3}
+    elem.indices                 = {
+        0, 1, 2,
+        0, 2, 3
+    }
     elem.vertices                = {
         {-half_w, half_h}, {half_w , half_h},
         {half_w , -half_h}, {-half_w , -half_h}
@@ -54,6 +73,57 @@ end
 function hudString(x, y)
     local elem                       = CreateElement "ceStringPoly"
     elem.material                    = DEFAULT_FONT
+    return setupHudElem(elem, x, y)
+end
+
+-- Create a HUD aircraft element
+function hudAircraft(x, y, w, h)
+    local elem               = CreateElement "ceSMultiLine"
+    elem.material            = DEFAULT_MAT
+    elem.isdraw              = true
+    elem.indices             = {
+        0, 1,
+        1, 2,
+        2, 3,
+        3, 4,
+        4, 5,
+        5, 6,
+    }
+    elem.vertices            = {
+        {-w/2, 0},
+        {-w/4, 0},
+        {-w/8, -h/2},
+        {0, 0},
+        {w/8, -h/2},
+        {w/4, 0},
+        {w/2, 0},
+    }
+    return setupHudElem(elem, x, y)
+end
+
+-- Create a HUD arc element
+function hudArc(x, y, r, theta_start, theta_end)
+    local elem               = CreateElement "ceSMultiLine"
+    elem.material            = DEFAULT_MAT
+    elem.isdraw              = true
+    local indices             = {}
+    local vertices            = {}
+    local i = 0
+    for i=0,theta_end-theta_start,1 do
+        if i > 0 then
+            table.insert(indices, i - 1)
+            table.insert(indices, i)
+        end
+        theta=theta_start+i
+        table.insert(vertices, {
+            r * math.cos(math.rad(theta)),
+            r * math.sin(math.rad(theta)),
+        })
+    end
+    print_message_to_user("I: "..tostring(table.getn(indices)))
+    print_message_to_user("V: "..tostring(table.getn(vertices)))
+    elem.indices = indices
+    elem.vertices = vertices
     return setupHudElem(elem, x, y)
 end
 
