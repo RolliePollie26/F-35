@@ -1,4 +1,3 @@
-
 ALTWARNING                      = hmdString(0, 0)
 ALTWARNING.alignment            = "CenterCenter"
 ALTWARNING.stringdefs           = TEXT_SIZE.HUGE

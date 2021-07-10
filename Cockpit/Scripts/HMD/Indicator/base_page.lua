@@ -2,9 +2,7 @@ dofile(LockOn_Options.script_path.."HMD/Indicator/definitions.lua")
 
 IND_TEX_PATH = LockOn_Options.script_path.."../IndicationTextures/HMD/" -- Texture Directory
 
-SetScale(FOV)
-
-ASPECT_HEIGHT = GetAspect()
+SetScale(MILLYRADIANS)
 
 DEFAULT_LEVEL = 4
 DEFAULT_NOCLIP_LEVEL = DEFAULT_LEVEL - 1

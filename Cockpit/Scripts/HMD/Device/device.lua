@@ -59,26 +59,6 @@ function SetCommand(command,value)
     end
 end
 
-local FPM_X = get_param_handle("FPM_X")
-local FPM_Y = get_param_handle("FPM_Y")
-function update_flight_path_marker()
-    local pitch = sensor_data:getPitch()
-    local speedx, speedy, speedz = sensor_data:getSelfVelocity()
-    local speedh=math.sqrt(speedx*speedx + speedz*speedz)
-    local anglev
-    if speedh == 0 then
-        anglev = 0
-    else
-        anglev = math.atan(speedy/speedh)
-    end
-    local iasx, iasy, iasz = sensor_data.getSelfAirspeed()
-    local angleh = math.atan2(iasz, iasx) - math.atan2(speedz, speedx)
-    angleh = math.rad(sensor_data.getAngleOfSlide())-angleh
-
-    FPM_X:set(angleh)
-    FPM_Y:set(anglev - pitch)
-end
-
 -- We have to manually calculate the way heading lines (and their text)
 -- move and rotate when the plane rotates
 local HEADING_LINE_PARAMS = {}
@@ -96,27 +76,26 @@ function update_heading_lines()
     local hmd_pwr = HMD_PWR:get()
     local hdg = -sensor_data.getHeading()
     for i,params in pairs(HEADING_LINE_PARAMS) do
-        local hdg_diff = (math.rad(i) - hdg)
+        local hdg_diff = math.deg(math.rad(i) - hdg)
         -- Normalize hdg_diff to between -PI and PI
-        while hdg_diff > math.pi do
-            hdg_diff = hdg_diff - 2.0 * math.pi
+        while hdg_diff > 180 do
+            hdg_diff = hdg_diff - 360
         end
-        while hdg_diff < -math.pi do
-            hdg_diff = hdg_diff + 2.0 * math.pi
+        while hdg_diff < -180 do
+            hdg_diff = hdg_diff + 360
         end
-        if math.abs(hdg_diff) > math.rad(25) then
+        if math.abs(hdg_diff) > 25 then
             -- Hide ticks and text where it is out of bounds
             params.o:set(0)
             params.to:set(0)
         else
-            local hdg_offset = hdg_diff / (math.pi / 2)
-            params.x:set(hdg_offset)
+            params.x:set(hdg_diff)
             params.o:set(hmd_pwr)
-            if math.abs(hdg_diff) < math.rad(3) then
+            if math.abs(hdg_diff) < 6 then
                 -- Hide tick text where it would interfere with heading indicator
                 params.to:set(0)
             else
-                params.tx:set(hdg_offset)
+                params.tx:set(hdg_diff)
                 params.to:set(hmd_pwr)
             end
         end
@@ -125,6 +104,8 @@ end
 
 -- We have to manually calculate the way pitch lines (and their text)
 -- move and rotate when the plane rotates
+local FPM_X = get_param_handle("FPM_X")
+local FPM_Y = get_param_handle("FPM_Y")
 local PITCH_LINE_PARAMS = {}
 for i=-90,90,5 do
     PITCH_LINE_PARAMS[i] = {
@@ -141,31 +122,89 @@ for i=-90,90,5 do
 end
 function update_pitch_lines()
     local hmd_pwr = HMD_PWR:get()
-    local pitch = -sensor_data.getPitch()
+    local pitch = sensor_data:getPitch()
     local roll = sensor_data.getRoll()
-    local roll_sin = math.sin(roll)
     local roll_cos = math.cos(roll)
+    local roll_sin = math.sin(roll)
+    local speedx, speedy, speedz = sensor_data:getSelfVelocity()
+    local speedh=math.sqrt(speedx*speedx + speedz*speedz)
+    local anglev
+    if speedh == 0 then
+        anglev = 0
+    else
+        anglev = math.atan(speedy/speedh)
+    end
+    anglev = anglev - pitch
+    local iasx, iasy, iasz = sensor_data.getSelfAirspeed()
+    local angleh = math.atan2(iasz, iasx) - math.atan2(speedz, speedx)
+    angleh = math.rad(sensor_data.getAngleOfSlide())-angleh
+
+    fpm_x = math.deg(angleh * roll_cos - anglev * roll_sin)
+    fpm_y = math.deg(anglev * roll_cos + angleh * roll_sin)
+    FPM_X:set(fpm_x)
+    FPM_Y:set(fpm_y)
+
     for i,params in pairs(PITCH_LINE_PARAMS) do
-        local pitch_diff = pitch - math.rad(-i)
-        if pitch_diff > math.rad(8) or pitch_diff < -math.rad(16) then
+        local pitch_diff = math.deg(-pitch - math.rad(-i))
+        if pitch_diff > 8 or pitch_diff < -12 then
             -- Hide pitch lader outside expected region
             params.o:set(0)
         else
-            local pitch_offset = pitch_diff / (math.pi / 2)
             local text_offset
             if i > 0 then
-                text_offset = 0.06
+                text_offset = 3.75
             else
-                text_offset = 0.05
+                text_offset = 3.25
             end
             params.o:set(hmd_pwr)
             params.r:set(roll)
-            params.x:set(-pitch_offset * roll_sin)
-            params.y:set(pitch_offset * roll_cos)
-            params.tx:set(-text_offset * roll_cos - pitch_offset * roll_sin)
-            params.ty:set(pitch_offset * roll_cos - text_offset * roll_sin)
+            params.x:set(-pitch_diff * roll_sin)
+            params.y:set(pitch_diff * roll_cos)
+            params.tx:set(-text_offset * roll_cos - pitch_diff * roll_sin)
+            params.ty:set(pitch_diff * roll_cos - text_offset * roll_sin)
         end
     end
+end
+
+local TGT_X = get_param_handle("TGT_X")
+local TGT_Y = get_param_handle("TGT_Y")
+local TGT_O = get_param_handle("TGT_O")
+function update_target_marker()
+    -- Hard-coded to north-west "13" on Batumi runway
+    local t_pos = geo_to_lo_coords(41.615831, 41.590797)
+    local t_elev = 10.5
+
+    local lx, ly, lz = sensor_data.getSelfCoordinates()
+
+    local dx = t_pos.x - lx
+    local dy = t_elev - ly
+    local dz = t_pos.z - lz
+    local t_dist = math.sqrt(math.pow(dx, 2) + math.pow(dy, 2) + math.pow(dz, 2))
+    local t_pitch = math.asin(dy / t_dist)
+    local t_hdg = math.atan2(dz / t_dist, dx / t_dist)
+    t_pitch = math.deg(t_pitch)
+    t_hdg = math.deg(t_hdg)
+
+    local hdg = math.deg(2.0 * math.pi - sensor_data.getHeading())
+    local pitch = math.deg(-sensor_data.getPitch())
+    local roll = sensor_data.getRoll()
+    local roll_cos = math.cos(roll)
+    local roll_sin = math.sin(roll)
+
+    local hdg_diff = t_hdg - hdg
+    -- Normalize hdg_diff to between -PI and PI
+    while hdg_diff > 180 do
+        hdg_diff = hdg_diff - 360
+    end
+    while hdg_diff < -180 do
+        hdg_diff = hdg_diff + 360
+    end
+
+    local pitch_diff = pitch + t_pitch
+
+    TGT_X:set(hdg_diff * roll_cos - pitch_diff * roll_sin)
+    TGT_Y:set(pitch_diff * roll_cos + hdg_diff * roll_sin)
+    TGT_O:set(0) -- SET TO 1 TO VIEW TARGET
 end
 
 function update()
@@ -184,7 +223,7 @@ function update()
 
     set_aircraft_draw_argument_value(400,VISOR)
 
-    update_flight_path_marker()
     update_heading_lines()
     update_pitch_lines()
+    update_target_marker()
 end
