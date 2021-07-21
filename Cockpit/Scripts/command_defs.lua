@@ -21,20 +21,21 @@ device_commands =
 	NavLt			= __custom_counter(), -- 10009
 	FormLt			= __custom_counter(), -- 10010
 	floodLt			= __custom_counter(), -- 10011
+	LandingLt		= __custom_counter(), -- 10012
 
-	HMDPwr			= __custom_counter(), -- 10012
-	MFDPwr			= __custom_counter(), -- 10013
-	MFDBrt			= __custom_counter(), -- 10014
+	HMDPwr			= __custom_counter(), -- 10013
+	MFDPwr			= __custom_counter(), -- 10014
+	MFDBrt			= __custom_counter(), -- 10015
 
-	ENGIgn			= __custom_counter(), -- 10015
-	ENGStart		= __custom_counter(), -- 10016
+	ENGIgn			= __custom_counter(), -- 10016
+	ENGStart		= __custom_counter(), -- 10017
 
-	HMDSensorView	= __custom_counter(), -- 10017
-	HMDPower		= __custom_counter(), -- 10018
-	SensorPower		= __custom_counter(), -- 10019
+	HMDSensorView	= __custom_counter(), -- 10018
+	HMDPower		= __custom_counter(), -- 10019
+	SensorPower		= __custom_counter(), -- 10020
 
-	WeaponsBay		= __custom_counter(), -- 10020
-	EngineCovers	= __custom_counter(), -- 10021
+	WeaponsBay		= __custom_counter(), -- 10021
+	EngineCovers	= __custom_counter(), -- 10022
 
 }
 

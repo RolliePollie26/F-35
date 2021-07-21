@@ -24,11 +24,13 @@ function post_initialize()
     if birth == "GROUND_HOT" or birth == "AIR_HOT" then
         BATT_28V:set(1)
         BATT_270V:set(1)
-        BATT:set(1)
+        dev:performClickableAction(device_commands.BattSwitch,1,true)
+        --BATT:set(1)
     elseif birth == "GROUND_COLD" then
         BATT_28V:set(0)
         BATT_270V:set(0)
-        BATT:set(0)
+        dev:performClickableAction(device_commands.BattSwitch,0,true)
+        --BATT:set(0)
     end
     print_message_to_user("ELECTRIC SYSTEM INIT")
 end
@@ -50,13 +52,25 @@ function SetCommand(command,value)
         print_message_to_user("BATT_270V:set(0)")
     end
 
-    if command == device_commands.BattSwitch and BATT:get() == 0 then
+    if command == device_commands.BattSwitch then
+        if get_cockpit_draw_argument_value(14) == 1 then
+            dev:performClickableAction(device_commands.BattSwitch,0,true)
+            dispatch_action(nil,315,0)
+            BATT:set(0)
+        elseif get_cockpit_draw_argument_value(14) < 1 then
+            dev:performClickableAction(device_commands.BattSwitch,1,true)
+            dispatch_action(nil,315,1)
+            BATT:set(1)
+        end
+    end
+
+    --[[ if command == device_commands.BattSwitch and BATT:get() == 0 then
         BATT:set(1)
         print_message_to_user("BATT:set(1)")
     elseif command == device_commands.BattSwitch and BATT:get() == 1 then
         BATT:set(0)
         print_message_to_user("BATT:set(0)")
-    end
+    end ]]
 end
 
 function update()

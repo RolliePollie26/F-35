@@ -64,7 +64,7 @@ local WeaponsBay = 0
 local Chocks = 0
 local Covers = 0
 
-dev:listen_command(10020)
+dev:listen_command(device_commands.WeaponsBay)
 dev:listen_event("WheelChocksOn")
 dev:listen_event("WheelChocksOff")
 
@@ -93,19 +93,19 @@ function post_initialize()
 end
 
 function SetCommand(command,value)
-    if command == 10020 and ccParameters.BATT:get() == 0 and WeaponsBay == 0 and ccParameters.WEAPONBAY:get() == 0 then
+    if command == device_commands.WeaponsBay and ccParameters.BATT:get() == 0 and WeaponsBay == 0 and ccParameters.WEAPONBAY:get() == 0 then
         ccParameters.WEAPONBAY:set(0)
         WeaponsBay = 0
         print_message_to_user("Must Turn On Battery")
-    elseif command == 10020 and ccParameters.BATT:get() == 0 and WeaponsBay == 1 and ccParameters.WEAPONBAY:get() == 1 then
+    elseif command == device_commands.WeaponsBay and ccParameters.BATT:get() == 0 and WeaponsBay == 1 and ccParameters.WEAPONBAY:get() == 1 then
         ccParameters.WEAPONBAY:set(1)
         WeaponsBay = 1
         print_message_to_user("Must Turn On Battery")
-    elseif command == 10020 and ccParameters.BATT:get() == 1 and WeaponsBay == 0 and ccParameters.WEAPONBAY:get() == 0 then
+    elseif command == device_commands.WeaponsBay and ccParameters.BATT:get() == 1 and WeaponsBay == 0 and ccParameters.WEAPONBAY:get() == 0 then
         ccParameters.WEAPONBAY:set(1)
         WeaponsBay = 1
         print_message_to_user("Weapons Bay OPEN")
-    elseif command == 10020 and ccParameters.BATT:get() == 1 and WeaponsBay == 1 and ccParameters.WEAPONBAY:get() == 1 then
+    elseif command == device_commands.WeaponsBay and ccParameters.BATT:get() == 1 and WeaponsBay == 1 and ccParameters.WEAPONBAY:get() == 1 then
         ccParameters.WEAPONBAY:set(0)
         WeaponsBay = 0
         print_message_to_user("Weapons Bay CLOSED")

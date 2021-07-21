@@ -12,6 +12,7 @@ creators[devices.LANDING_GEAR]      = {"avLuaDevice",               LockOn_Optio
 creators[devices.CANOPY]            = {"avLuaDevice",               LockOn_Options.script_path.."Airframe/Canopy.lua"}
 creators[devices.FCS]               = {"avLuaDevice",               LockOn_Options.script_path.."Airframe/FCS.lua"}
 creators[devices.HMD]               = {"avLuaDevice",               LockOn_Options.script_path.."HMD/Device/device.lua"}
+creators[devices.LIGHTS]            = {"avLuaDevice",               LockOn_Options.script_path.."Airframe/Lights.lua"}
 creators[devices.INTERCOM]          = {"avIntercom"}
 creators[devices.RADIO]             = {"avUHK_ARC_164", {devices.INTERCOM}}
 creators[devices.NVG]               = {"avNightVisionGoggles"}

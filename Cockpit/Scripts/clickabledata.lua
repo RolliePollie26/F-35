@@ -346,6 +346,8 @@ elements = {}
 
 elements["PNT_LDG_GEAR"] = default_2_position_tumb(_("Landing Gear UP/DOWN"), devices.LANDING_GEAR, 68, 5, TOGGLECLICK)
 
+elements["PNT_STRB_LT"] = default_2_position_tumb(_("Strobe Light ON/OFF"), devices.LIGHTS, device_commands.StrobeLt, 6, TOGGLECLICK)
+
 elements["PNT_IPP"] = Switch_Up_Down_Release(_("IPP OFF/AUTO/START"), device_commands.IPPSwitch, 15, TOGGLECLICK)
 elements["PNT_ICC1"] = default_2_position_tumb(_("ICC 1 ON/OFF"), devices.FW135PW100, device_commands.ICC1, 11, TOGGLECLICK)
 elements["PNT_ICC2"] = default_2_position_tumb(_("ICC 2 ON/OFF"), devices.FW135PW100, device_commands.ICC2, 10, TOGGLECLICK)
