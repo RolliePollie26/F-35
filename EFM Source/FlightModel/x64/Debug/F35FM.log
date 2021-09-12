@@ -1,5 +1,0 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(505,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  stdafx.cpp
-  dllmain.cpp
-  F35A.cpp
-C:\Users\spenc\Saved Games\DCS.openbeta\Mods\aircraft\F-35\EFM Source\FlightModel\include\F35Constants.h(9,1): fatal error C1189: #error:  "DEBUG BUILD NOT SUPPORTED"
