@@ -63,15 +63,10 @@ FM.old 			= 6 ]]
 make_view_settings('F-35A', ViewSettings, SnapViews)
 --make_view_settings('F-35B', ViewSettings, SnapViews)
 --make_view_settings('F-35C', ViewSettings, SnapViews)
-<<<<<<< Updated upstream
+-------------------------------------------------------------------------------------
 --make_flyable('F-35A',current_mod_path..'/Cockpit/Scripts/',FM, current_mod_path..'/comm.lua')
 make_flyable('F-35A',current_mod_path..'/Cockpit/Scripts/',nil, current_mod_path..'/comm.lua')
 --make_flyable('F-35B',current_mod_path..'/Cockpit/Scripts/', FM, current_mod_path..'/comm.lua')
 --make_flyable('F-35C',current_mod_path..'/Cockpit/Scripts/', FM, current_mod_path..'/comm.lua')
-=======
-make_flyable('F-35A',current_mod_path..'/Cockpit/Scripts/',nil, current_mod_path..'/comm.lua')
---make_flyable('F-35B',current_mod_path..'/Cockpit/Scripts/',F35B, current_mod_path..'/comm.lua')
---make_flyable('F-35C',current_mod_path..'/Cockpit/Scripts/',F35C, current_mod_path..'/comm.lua')
->>>>>>> Stashed changes
 -------------------------------------------------------------------------------------
 plugin_done()
