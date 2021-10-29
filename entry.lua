@@ -1,11 +1,11 @@
-self_ID = "F-35A/B/C Lightning II by Foxtrot Oscar Simulation Designs"
+self_ID = "F-35A/B/C Lightning II by No-Stop Productions"
 declare_plugin(self_ID,
 {
 image     	 = "F-35.bmp",
 installed 	 = true, -- if false that will be place holder , or advertising
 dirName	  	 = current_mod_path,
 displayName  = _("F-35"),
-developerName = _("Foxtrot Oscar Simulation Designs"),
+developerName = _("No-Stop Productions"),
 
 fileMenuName = _("F-35"),
 update_id        = "F-35",
@@ -63,9 +63,15 @@ FM.old 			= 6 ]]
 make_view_settings('F-35A', ViewSettings, SnapViews)
 --make_view_settings('F-35B', ViewSettings, SnapViews)
 --make_view_settings('F-35C', ViewSettings, SnapViews)
+<<<<<<< Updated upstream
 --make_flyable('F-35A',current_mod_path..'/Cockpit/Scripts/',FM, current_mod_path..'/comm.lua')
 make_flyable('F-35A',current_mod_path..'/Cockpit/Scripts/',nil, current_mod_path..'/comm.lua')
 --make_flyable('F-35B',current_mod_path..'/Cockpit/Scripts/', FM, current_mod_path..'/comm.lua')
 --make_flyable('F-35C',current_mod_path..'/Cockpit/Scripts/', FM, current_mod_path..'/comm.lua')
+=======
+make_flyable('F-35A',current_mod_path..'/Cockpit/Scripts/',nil, current_mod_path..'/comm.lua')
+--make_flyable('F-35B',current_mod_path..'/Cockpit/Scripts/',F35B, current_mod_path..'/comm.lua')
+--make_flyable('F-35C',current_mod_path..'/Cockpit/Scripts/',F35C, current_mod_path..'/comm.lua')
+>>>>>>> Stashed changes
 -------------------------------------------------------------------------------------
 plugin_done()
