@@ -89,7 +89,7 @@ function post_initialize()
     stallWarn = audioHost:create_sound("Aircrafts/F-35/Cockpit/stallWarn")
     avionics = audioHost:create_sound("Aircrafts/F-35/Cockpit/avionics")
     print_message_to_user("COCKPIT INIT")
-    print_message_to_user("COMMUNITY F-35A LIGHTNING II\nDEVELOPED BY FOXTROT OSCAR SIMULATION DESIGNS\nVERSION 1.0.0.2\nDEVELOPMENT BUILD\nDO NOT REDISTRIBUTE")
+    print_message_to_user("COMMUNITY F-35A LIGHTNING II\nDEVELOPED BY NO-STOP PRODUCTIONS\nVERSION 1.0.0.2\nDEVELOPMENT BUILD\nDO NOT REDISTRIBUTE")
 end
 
 function SetCommand(command,value)
